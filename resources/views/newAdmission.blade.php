@@ -27,7 +27,7 @@
                 **This information will not be shared with the public and will be used only for future document preparation and certification purposes.**
               </p>
               <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div class="sm:col-span-3 ">
+                <div class="sm:col-span-2 sm:col-start-1">
                   <label for="full-name" class="block text-sm/6 font-medium text-gray-900">
                     Full Name (English)
                   </label>
@@ -37,7 +37,7 @@
                     />
                   </div>
                 </div>
-                <div class="sm:col-span-3">
+                <div class="sm:col-span-2">
                   <label for="full-bangle-name" class="block text-sm/6 font-medium text-gray-900">
                     সম্পূর্ণ নাম (বাংলায়)
                   </label>
@@ -45,6 +45,29 @@
                     <input id="full-bangle-name" type="text" name="full-bangle-name" autocomplete="full-name-bangla"
                     class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="সম্পূর্ণ নাম লিখুন"
                     />
+                  </div>
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="gender" class="block text-sm/6 font-medium text-gray-900">
+                    Gender
+                  </label>
+                  <div class="mt-2 grid grid-cols-1">
+                    <select id="gender" name="gender" autocomplete="gender-type" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                      <option selected>
+                        Male
+                      </option>
+                      <option>
+                        Female
+                      </option>
+                      <option>
+                        Others
+                      </option>
+                    </select>
+                    <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true"
+                    class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
+                      <path d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                      clip-rule="evenodd" fill-rule="evenodd" />
+                    </svg>
                   </div>
                 </div>
                 <div class="col-span-full">
@@ -86,26 +109,13 @@
                   </div>
                 </div>
                 <div class="sm:col-span-2">
-                  <label for="country" class="block text-sm/6 font-medium text-gray-900">
-                    Nationality ( জাতীয়তা )
+                  <label for="date-of-birth" class="block text-sm/6 font-medium text-gray-900">
+                    Date of birth ( জন্ম তারিখ )
                   </label>
-                  <div class="mt-2 grid grid-cols-1">
-                    <select id="country" name="country" autocomplete="country-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                      <option selected>
-                        Bangladeshi
-                      </option>
-                      <option>
-                        Indian
-                      </option>
-                      <option>
-                        Pakistani
-                      </option>
-                    </select>
-                    <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true"
-                    class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
-                      <path d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                      clip-rule="evenodd" fill-rule="evenodd" />
-                    </svg>
+                  <div class="mt-2">
+                    <input id="date-of-birth" type="date" name="date-of-birth" autocomplete="date-of-birth"
+                    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
                   </div>
                 </div>
                 <div class="sm:col-span-2 sm:col-start-1">
@@ -137,41 +147,7 @@
                     class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="1212"
                     />
                   </div>
-                </div>
-
-                <div class="sm:col-span-3">
-                  <label for="gender" class="block text-sm/6 font-medium text-gray-900">
-                    Gender
-                  </label>
-                  <div class="mt-2 grid grid-cols-1">
-                    <select id="gender" name="gender" autocomplete="gender-type" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                      <option selected>
-                        Male
-                      </option>
-                      <option>
-                        Female
-                      </option>
-                      <option>
-                        Others
-                      </option>
-                    </select>
-                    <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true"
-                    class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
-                      <path d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                      clip-rule="evenodd" fill-rule="evenodd" />
-                    </svg>
-                  </div>
-                </div>
-                <div class="sm:col-span-3">
-                  <label for="date-of-birth" class="block text-sm/6 font-medium text-gray-900">
-                    Date of birth ( জন্ম তারিখ )
-                  </label>
-                  <div class="mt-2">
-                    <input id="date-of-birth" type="date" name="date-of-birth" autocomplete="date-of-birth"
-                    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
+                </div>              
               </div>
               <div class="mt-12">
                <div class="border-b border-gray-900/10 pb-5">
@@ -242,7 +218,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="border-b border-gray-900/10 mt-6 pb-5">
                <div class="border-b border-gray-900/10 pb-3">
                     <h2 class="text-base/7 font-semibold text-gray-900">
@@ -368,16 +343,16 @@
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="reffrance" class="block text-sm/6 font-medium text-gray-900">
-                    Reffrance (রেফারেন্স)
+                  <label for="reference" class="block text-sm/6 font-medium text-gray-900">
+                    Reference (রেফারেন্স)
                   </label>
                   <div class="mt-2">
-                    <input id="reffrance" type="text" name="reffrance" autocomplete="reffrance"
+                    <input id="reference" type="text" name="reference" autocomplete="reference"
                     class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="যার মাধ্যমে আসছেন"
                     />
                   </div>
                 </div>
-                <div class="sm:col-span-3">
+                <div class="sm:col-span-2">
                   <label for="course-duration" class="block text-sm/6 font-medium text-gray-900">
                     Course Duration (কোর্সের মেয়াদ) 
                   </label>
@@ -400,7 +375,7 @@
                     </svg>
                   </div>
                 </div>
-                <div class="sm:col-span-3">
+                <div class="sm:col-span-2">
                   <label for="cost-fee" class="block text-sm/6 font-medium text-gray-900">
                     Total Cost Including Course Fee, Living, and Food 
                   </label>
@@ -410,7 +385,7 @@
                       />
                   </div>
                 </div>
-                <div class="sm:col-span-3">
+                <div class="sm:col-span-2">
                   <label for="money-recived" class="block text-sm/6 font-medium text-gray-900">
                     Who received this amount? 
                   </label>
