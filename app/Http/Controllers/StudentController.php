@@ -70,10 +70,30 @@ class StudentController extends Controller
             'status'            => 'required|in:active,inactive',
         ]);
 
-        // File uploads
-        $validated['card_file'] = $request->file('card_file')->store('students/cards', 'public');
-        $validated['photo'] = $request->file('photo')->store('students/photos', 'public');
+        $username = Str::slug($validated['full_name_english']);
+        // Card file upload
+        if ($request->hasFile('card_file')) {
+            $cardExt = $request->file('card_file')->getClientOriginalExtension();
+            $validated['card_file'] = "students/passport_or_nid_card_files//{$username}_card_file.{$cardExt}";
 
+            $request->file('card_file')->storeAs(
+                'students/passport_or_nid_card_files/',
+                "{$username}_card_file.{$cardExt}",
+                'public'
+            );
+        }
+
+        // Photo upload
+        if ($request->hasFile('photo')) {
+            $photoExt = $request->file('photo')->getClientOriginalExtension();
+            $validated['photo'] = "students/photos/{$username}_photo.{$photoExt}";
+
+            $request->file('photo')->storeAs(
+                'students/photos',
+                "{$username}_photo.{$photoExt}",
+                'public'
+            );
+        }
         
         $course = Course::findOrFail($request->course_id);
 
@@ -138,12 +158,38 @@ class StudentController extends Controller
     $validated['course_fee'] = $course->price;
 
     // File updates (optional)
-    if ($request->hasFile('photo')) {
-        $validated['photo'] = $request->file('photo')->store('students/photos', 'public');
+    $username = Str::slug($validated['full_name_english']);
+
+    // Card file
+    if ($request->hasFile('card_file')) {
+        if ($student->card_file) {
+            Storage::disk('public')->delete($student->card_file);
+        }
+
+        $ext = $request->file('card_file')->getClientOriginalExtension();
+        $validated['card_file'] = "students/passport_or_nid_card_files//{$username}_{$student->id}_card_file.{$ext}";
+
+        $request->file('card_file')->storeAs(
+            'students/passport_or_nid_card_files/',
+            "{$username}_{$student->id}_card_file.{$ext}",
+            'public'
+        );
     }
 
-    if ($request->hasFile('card_file')) {
-        $validated['card_file'] = $request->file('card_file')->store('students/cards', 'public');
+    // Photo
+    if ($request->hasFile('photo')) {
+        if ($student->photo) {
+            Storage::disk('public')->delete($student->photo);
+        }
+
+        $ext = $request->file('photo')->getClientOriginalExtension();
+        $validated['photo'] = "students/photos/{$username}_{$student->id}_photo.{$ext}";
+
+        $request->file('photo')->storeAs(
+            'students/photos',
+            "{$username}_{$student->id}_photo.{$ext}",
+            'public'
+        );
     }
 
     $student->update($validated);

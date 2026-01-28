@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Student extends Model
 {
@@ -63,4 +64,19 @@ class Student extends Model
     //         ->withPivot(['enroll_date', 'status'])
     //         ->withTimestamps();
     // }
+
+    protected static function booted()
+    {
+        static::deleting(function ($student) {
+
+            if ($student->photo && Storage::disk('public')->exists($student->photo)) {
+                Storage::disk('public')->delete($student->photo);
+            }
+
+            if ($student->card_file && Storage::disk('public')->exists($student->card_file)) {
+                Storage::disk('public')->delete($student->card_file);
+            }
+
+        });
+    }
 }
