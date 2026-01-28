@@ -80,10 +80,7 @@ class StudentController extends Controller
         $validated['course_duration'] = $course->duration;
         $validated['course_fee'] = $course->price;
 
-        Student::create($request->validated() + [
-            'card_file' => $cardFilePath ?? null,
-            'photo' => $photoPath ?? null,
-        ]);
+        Student::create($validated);
 
         return redirect()->route('students.index')
             ->with('success','Student created successfully');
@@ -149,10 +146,7 @@ class StudentController extends Controller
         $validated['card_file'] = $request->file('card_file')->store('students/cards', 'public');
     }
 
-    $student->update($request->validated() + [
-        'card_file' => $cardFilePath ?? $student->card_file,
-        'photo' => $photoPath ?? $student->photo,
-    ]);
+    $student->update($validated);
 
     return redirect()->route('students.index')
         ->with('success', 'Student updated successfully');
