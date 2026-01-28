@@ -8,6 +8,11 @@
             </a>
         </div>
 
+        @if(session('success'))
+            <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
         <table class="w-full border">
             <thead class="bg-gray-100">
                 <tr>
@@ -26,7 +31,12 @@
                     <td class="p-2 border">{{ $course->name }}</td>
                     <td class="p-2 border">{{ $course->duration }}</td>
                     <td class="p-2 border">{{ $course->price }}</td>
-                    <td class="p-2 border">{{ ucfirst($course->status) }}</td>
+                    <td class="p-2 border">
+                        <span class="px-2 py-1 text-sm rounded
+                            {{ $course->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
+                            {{ ucfirst($course->status) }}
+                        </span>
+                    </td>
                     <td class="p-2 border">
                         <a href="{{ route('courses.edit', $course) }}"
                            class="text-blue-600">Edit</a>

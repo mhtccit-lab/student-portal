@@ -29,7 +29,12 @@
             <tr>
                 <td class="p-2 border">{{ $trade->institute->name }}</td>
                 <td class="p-2 border">{{ $trade->name }}</td>
-                <td class="p-2 border">{{ ucfirst($trade->status) }}</td>
+                <td class="p-2 border">
+                    <span class="px-2 py-1 text-sm rounded
+                        {{ $trade->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
+                        {{ ucfirst($trade->status) }}
+                    </span>
+                </td>
                 <td class="p-2 border">
                     <a href="{{ route('trades.edit', $trade) }}" class="text-blue-600 mr-2">Edit</a>
 

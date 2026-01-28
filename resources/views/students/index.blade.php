@@ -8,6 +8,12 @@
         </a>
     </div>
 
+    @if(session('success'))
+        <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <table class="w-full border">
         <thead class="bg-gray-100">
             <tr>
@@ -26,7 +32,12 @@
                 <td class="border p-2">{{ $student->institute->name }}</td>
                 <td class="border p-2">{{ $student->course->name }}</td>
                 <td class="border p-2">{{ $student->phone }}</td>
-                <td class="border p-2">{{ ucfirst($student->status) }}</td>
+                <td class="p-2 border">
+                    <span class="px-2 py-1 text-sm rounded
+                        {{ $student->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
+                        {{ ucfirst($student->status) }}
+                    </span>
+                </td>
                 <td class="border p-2">
                     <a href="{{ route('students.edit',$student) }}" class="text-blue-600">Edit</a>
                     <form method="POST" action="{{ route('students.destroy',$student) }}" class="inline">
