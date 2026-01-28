@@ -16,10 +16,36 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link 
+                        :href="route('institutes.index')" 
+                        :active="request()->routeIs('institutes.*')">
+                        {{ __('Institutes') }}
+                    </x-nav-link>
+                </div>
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('newAdmission')" :active="request()->routeIs('newAdmission')">
-                        {{ __('New Admission') }}
+                    <x-nav-link 
+                        :href="route('trades.index')" 
+                        :active="request()->routeIs('trades.*')">
+                        {{ __('Trades') }}
+                    </x-nav-link>
+                </div>
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link 
+                        :href="route('courses.index')" 
+                        :active="request()->routeIs('courses.*')">
+                        {{ __('Courses') }}
+                    </x-nav-link>
+                </div>
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link 
+                        :href="route('students.index')" 
+                        :active="request()->routeIs('students.*')">
+                        {{ __('Students') }}
                     </x-nav-link>
                 </div>
             </div>

@@ -1,0 +1,249 @@
+<x-app-layout>
+    <div class="max-w-6xl mx-auto py-6">
+
+        <h2 class="text-2xl font-bold mb-6">Create Student</h2>
+        @if ($errors->any())
+            <div class="bg-red-100 text-red-700 p-3 mb-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form method="POST"
+              action="{{ route('students.store') }}"
+              enctype="multipart/form-data"
+              class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @csrf
+
+            {{-- Full Name English --}}
+            <div>
+                <label class="block mb-1">Full Name (English)</label>
+                <input type="text" name="full_name_english"
+                       class="w-full border p-2"
+                       value="{{ old('full_name_english') }}">
+            </div>
+
+            {{-- Full Name Bangla --}}
+            <div>
+                <label class="block mb-1">Full Name (Bangla)</label>
+                <input type="text" name="full_name_bangla"
+                       class="w-full border p-2"
+                       value="{{ old('full_name_bangla') }}">
+            </div>
+
+            {{-- Gender --}}
+            <div>
+                <label class="block mb-1">Gender</label>
+                <select name="gender" class="w-full border p-2">
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            {{-- Phone --}}
+            <div>
+                <label class="block mb-1">Phone</label>
+                <input type="text" name="phone"
+                       class="w-full border p-2"
+                       value="{{ old('phone') }}">
+            </div>
+
+            {{-- Email --}}
+            <div>
+                <label class="block mb-1">Email</label>
+                <input type="email" name="email"
+                       class="w-full border p-2"
+                       value="{{ old('email') }}">
+            </div>
+
+            {{-- Date of Birth --}}
+            <div>
+                <label class="block mb-1">Date of Birth</label>
+                <input type="date" name="date_of_birth"
+                       class="w-full border p-2"
+                       value="{{ old('date_of_birth') }}">
+            </div>
+
+            {{-- Current Address --}}
+            <div class="md:col-span-2">
+                <label class="block mb-1">Current Address</label>
+                <textarea name="current_address"
+                          class="w-full border p-2"
+                          rows="2">{{ old('current_address') }}</textarea>
+            </div>
+
+            {{-- Permanent Address --}}
+            <div class="md:col-span-2">
+                <label class="block mb-1">Permanent Address</label>
+                <textarea name="permanent_address"
+                          class="w-full border p-2"
+                          rows="2">{{ old('permanent_address') }}</textarea>
+            </div>
+
+            {{-- District --}}
+            <div>
+                <label class="block mb-1">District</label>
+                <input name="district" class="w-full border p-2">
+            </div>
+
+            {{-- Police Station --}}
+            <div>
+                <label class="block mb-1">Police Station</label>
+                <input name="police_station" class="w-full border p-2">
+            </div>
+
+            {{-- Postal Code --}}
+            <div>
+                <label class="block mb-1">Postal Code</label>
+                <input name="postal_code" class="w-full border p-2">
+            </div>
+
+            {{-- Card Type --}}
+            <div>
+                <label class="block mb-1">Type of Card</label>
+                <select name="types_of_card" class="w-full border p-2">
+                    <option value="passport">Passport</option>
+                    <option value="nid">NID</option>
+                </select>
+            </div>
+
+            {{-- Card Number --}}
+            <div>
+                <label class="block mb-1">Card Number</label>
+                <input name="card_number" class="w-full border p-2">
+            </div>
+
+            {{-- Passport Expiry --}}
+            <div>
+                <label class="block mb-1">Passport Expiry Date</label>
+                <input type="date" name="passport_expiry_date"
+                       class="w-full border p-2">
+            </div>
+
+            {{-- Card File --}}
+            <div>
+                <label class="block mb-1">Card File</label>
+                <input type="file" name="card_file"
+                       class="w-full border p-2">
+            </div>
+
+            {{-- Photo --}}
+            <div>
+                <label class="block mb-1">Photo</label>
+                <input type="file" name="photo"
+                       class="w-full border p-2">
+            </div>
+
+            {{-- Institute --}}
+            <div>
+                <label class="block mb-1">Institute</label>
+                <select name="institute_id" class="w-full border p-2">
+                    @foreach($institutes as $institute)
+                        <option value="{{ $institute->id }}">
+                            {{ $institute->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Trade --}}
+            <div>
+                <label class="block mb-1">Trade</label>
+                <select name="trade_id" class="w-full border p-2">
+                    @foreach($trades as $trade)
+                        <option value="{{ $trade->id }}">
+                            {{ $trade->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Course --}}
+            <div>
+                <label class="block mb-1">Course</label>
+                <select name="course_id" id="course_id" class="w-full border p-2">
+                  <option value="">Select Course</option>
+                  @foreach($courses as $course)
+                      <option value="{{ $course->id }}">
+                          {{ $course->name }}
+                      </option>
+                  @endforeach
+                </select>
+            </div>            
+
+            {{-- Course Duration --}}
+            <div>
+              <label class="block mb-1">Course Duration</label>
+              <input name="course_duration" id="course_duration" class="w-full border p-2" readonly>
+            </div>
+
+            {{-- Course Fee --}}
+            <div>
+                <label class="block mb-1">Course Fee</label>
+                <input name="course_fee" id="course_fee" class="w-full border p-2" readonly>
+
+            </div>
+
+            {{-- Amount Receiver --}}
+            <div>
+                <label class="block mb-1">Amount Receiver Name</label>
+                <input name="amount_receiver_name"
+                       class="w-full border p-2">
+            </div>
+
+            {{-- Reference --}}
+            <div>
+                <label class="block mb-1">Reference Name</label>
+                <input name="reference_name"
+                       class="w-full border p-2">
+            </div>
+
+            {{-- Status --}}
+            <div>
+                <label class="block mb-1">Status</label>
+                <select name="status" class="w-full border p-2">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+
+            {{-- Actions --}}
+            <div class="md:col-span-2 flex justify-end gap-3 mt-4">
+                <a href="{{ route('students.index') }}"
+                   class="px-4 py-2 border rounded">
+                    Cancel
+                </a>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded">
+                    Save Student
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+      document.getElementById('course_id').addEventListener('change', function () {
+          const courseId = this.value;
+
+          if (!courseId) {
+              document.getElementById('course_duration').value = '';
+              document.getElementById('course_fee').value = '';
+              return;
+          }
+
+          fetch(`/courses/${courseId}/info`)
+              .then(response => response.json())
+              .then(data => {
+                  document.getElementById('course_duration').value = data.duration;
+                  document.getElementById('course_fee').value = data.price;
+              })
+              .catch(error => {
+                  console.error('Error fetching course info:', error);
+              });
+      });
+    </script>
+</x-app-layout>

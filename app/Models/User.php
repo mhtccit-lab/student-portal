@@ -12,22 +12,15 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        'institute_id',
+        'status',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -44,5 +37,50 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
+    // User belongs to an institute (except super admin)
+    public function institute()
+    {
+        return $this->belongsTo(Institute::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Role Helpers
+    |--------------------------------------------------------------------------
+    */
+
+    public function isSuperAdmin()
+    {
+        return $this->role === 'super_admin';
+    }
+
+    public function isInstituteAdmin()
+    {
+        return $this->role === 'institute_admin';
+    }
+
+    public function isStaff()
+    {
+        return $this->role === 'staff';
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Access Helpers
+    |--------------------------------------------------------------------------
+    */
+
+    // Check if user can access an institute
+    public function canAccessInstitute($instituteId)
+    {
+        return $this->isSuperAdmin() || $this->institute_id == $instituteId;
     }
 }
