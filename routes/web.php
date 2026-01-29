@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstituteController;
+use App\Http\Controllers\StudentEnrollmentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,13 +31,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('trades', TradeController::class);
     Route::resource('courses', CourseController::class);
     Route::resource('students', StudentController::class);
+    Route::resource('enrollments', StudentEnrollmentController::class);
 
-    Route::get('/courses/{course}/info', function (\App\Models\Course $course) {
-    return response()->json([
-        'duration' => $course->duration,
-        'price'    => $course->price,
-    ]);
-})->name('courses.info');
+    // Route::get('/courses/{course}/info', function (\App\Models\Course $course) {
+    //     return response()->json([
+    //         'duration' => $course->duration,
+    //         'price'    => $course->price,
+    //     ]);
+    // })->name('courses.info');
 });
 
 require __DIR__.'/auth.php';

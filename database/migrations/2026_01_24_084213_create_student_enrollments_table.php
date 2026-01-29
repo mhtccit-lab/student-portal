@@ -16,9 +16,19 @@ return new class extends Migration
             $table->foreignId('student_id')
                 ->constrained('students')
                 ->cascadeOnDelete();
+
+            $table->foreignId('institute_id')
+                ->constrained('institutes')
+                ->cascadeOnDelete();
+
+            $table->foreignId('trade_id')
+                ->constrained('trades')
+                ->cascadeOnDelete();
+
             $table->foreignId('course_id')
                 ->constrained('courses')
                 ->cascadeOnDelete();
+
             $table->date('enroll_date');
             $table->enum('status', ['enrolled','completed','cancelled'])
                 ->default('enrolled');

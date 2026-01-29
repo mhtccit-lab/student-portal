@@ -1,0 +1,83 @@
+<x-app-layout>
+<div class="max-w-4xl mx-auto py-6">
+
+<h2 class="text-2xl font-bold mb-6">New Enrollment</h2>
+
+<form method="POST" action="{{ route('enrollments.store') }}"
+      class="grid grid-cols-1 md:grid-cols-2 gap-4">
+@csrf
+
+{{-- Student --}}
+<div>
+    <label class="block mb-1">Student</label>
+    <select name="student_id" class="w-full border p-2">
+        @foreach($students as $student)
+            <option value="{{ $student->id }}">
+                {{ $student->full_name_english }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+{{-- Institute --}}
+<div>
+    <label class="block mb-1">Institute</label>
+    <select name="institute_id" class="w-full border p-2">
+        @foreach($institutes as $institute)
+            <option value="{{ $institute->id }}">
+                {{ $institute->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+{{-- Trade --}}
+<div>
+    <label class="block mb-1">Trade</label>
+    <select name="trade_id" class="w-full border p-2">
+        @foreach($trades as $trade)
+            <option value="{{ $trade->id }}">
+                {{ $trade->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+{{-- Course --}}
+<div>
+    <label class="block mb-1">Course</label>
+    <select name="course_id" class="w-full border p-2">
+        @foreach($courses as $course)
+            <option value="{{ $course->id }}">
+                {{ $course->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+{{-- Date --}}
+<div>
+    <label class="block mb-1">Enrollment Date</label>
+    <input type="date" name="enrollment_date"
+           class="w-full border p-2">
+</div>
+
+{{-- Status --}}
+<div>
+    <label class="block mb-1">Status</label>
+    <select name="status" class="w-full border p-2">
+        <option value="active">Active</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+    </select>
+</div>
+
+<div class="md:col-span-2 flex justify-end mt-4">
+    <button class="bg-blue-600 text-white px-6 py-2 rounded">
+        Enroll Student
+    </button>
+</div>
+
+</form>
+</div>
+</x-app-layout>
