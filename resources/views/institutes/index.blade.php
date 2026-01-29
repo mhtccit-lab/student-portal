@@ -16,7 +16,7 @@
         @endif
 
         <table class="w-full border border-gray-200">
-            <thead class="bg-gray-100">
+            <thead class="p-4 bg-blue-50 hover:bg-blue-100 rounded shadow text-center">
                 <tr>
                     <th class="p-2 border">Name</th>
                     <th class="p-2 border">Code</th>
