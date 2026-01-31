@@ -1,20 +1,31 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto p-6">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Institutes
+        </h2>
+    </x-slot>
 
-        <div class="flex justify-between mb-4">
-            <h2 class="text-xl font-bold">Institutes</h2>
-            <a href="{{ route('institutes.create') }}"
-               class="bg-blue-600 text-white px-4 py-2 rounded">
-                + Add Institute
-            </a>
-        </div>
+    <div class="py-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-        @if(session('success'))
-            <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
-                {{ session('success') }}
+            {{-- Header --}}
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    Institute List
+                </h1>
+
+                <a href="{{ route('institutes.create') }}"
+                   class="px-4 py-2 bg-indigo-600 text-white rounded-md
+                          hover:bg-indigo-700 transition">
+                    + Add Institute
+                </a>
             </div>
-        @endif
-
+            
+            @if(session('success'))
+                <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
         <table class="w-full border border-gray-200">
             <thead class="p-4 bg-blue-50 hover:bg-blue-100 rounded shadow text-center">
                 <tr>
