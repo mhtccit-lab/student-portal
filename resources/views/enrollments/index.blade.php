@@ -20,7 +20,12 @@
                     + New Enrollment
                 </a>
             </div>
-
+            
+            @if(session('success'))
+                <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
             {{-- Table --}}
             <div class="bg-white shadow rounded-lg overflow-hidden">
                 <div class="overflow-x-auto">
@@ -67,15 +72,20 @@
 
                                     {{-- Status Badge --}}
                                     <td class="px-4 py-3 text-center">
-                                        @if($enrollment->status === 'active')
+                                        @if($enrollment->status === 'enrolled')
                                             <span class="px-3 py-1 text-xs font-semibold
                                                 bg-green-100 text-green-700 rounded-full">
-                                                Active
+                                                Enrolled
                                             </span>
-                                        @else
+                                        @elseif($enrollment->status === 'completed')
+                                            <span class="px-3 py-1 text-xs font-semibold
+                                                bg-blue-100 text-blue-700 rounded-full">
+                                                Completed
+                                            </span>
+                                        @elseif($enrollment->status === 'cancelled')
                                             <span class="px-3 py-1 text-xs font-semibold
                                                 bg-red-100 text-red-700 rounded-full">
-                                                Inactive
+                                                Cancelled
                                             </span>
                                         @endif
                                     </td>

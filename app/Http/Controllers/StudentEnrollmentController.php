@@ -6,7 +6,7 @@ use App\Models\Trade;
 use App\Models\Course;
 use App\Models\Student;
 use App\Models\Institute;
-use App\Models\StudentEnrollment as Enrollment;
+use App\Models\StudentEnrollment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,14 +17,12 @@ class StudentEnrollmentController extends Controller
      */
     public function index()
     {
-        $enrollments = Enrollment::with([
-                'student',
-                'institute',
-                'trade',
-                'course'
-            ])
-            ->latest()
-            ->paginate(10);
+        $enrollments = StudentEnrollment::with([
+        'student',
+        'institute',
+        'trade',
+        'course'
+    ])->latest()->paginate(10);
 
         return view('enrollments.index', compact('enrollments'));
     }
@@ -47,7 +45,8 @@ class StudentEnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        
+        $validated  = $request->validate([
             'student_id'       => 'required|exists:students,id',
             'institute_id'     => 'required|exists:institutes,id',
             'trade_id'         => 'required|exists:trades,id',
@@ -55,11 +54,12 @@ class StudentEnrollmentController extends Controller
             'enroll_date'      => 'required|date',
             'status'           => 'required',
         ]);
-
-        StudentEnrollmentController::create($data);
-
-        return redirect()->route('enrollments.index')
+    
+        StudentEnrollment::create($validated );
+        return redirect()
+            ->route('enrollments.index')
             ->with('success', 'Student enrolled successfully');
+        //dd($request->all());
     }
 
     /**
@@ -75,15 +75,34 @@ class StudentEnrollmentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $enrollment = StudentEnrollment::findOrFail($id);
+        return view('enrollments.edit', [
+            'enrollment' => $enrollment,
+            'students'   => Student::orderBy('full_name_english')->get(),
+            'institutes' => Institute::orderBy('name')->get(),
+            'trades'     => Trade::orderBy('name')->get(),
+            'courses'    => Course::orderBy('name')->get(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, StudentEnrollment $enrollment)
     {
-        //
+        $validated = $request->validate([
+        'student_id'   => 'required|exists:students,id',
+        'institute_id' => 'required|exists:institutes,id',
+        'trade_id'     => 'required|exists:trades,id',
+        'course_id'    => 'required|exists:courses,id',
+        'status'       => 'required|in:enrolled,completed,cancelled',
+    ]);
+
+    $enrollment->update($validated);
+
+    return redirect()
+        ->route('enrollments.index')
+        ->with('success', 'Enrollment updated successfully.');
     }
 
     /**

@@ -32,8 +32,8 @@ return new class extends Migration
             $table->date('enroll_date');
             $table->enum('status', ['enrolled','completed','cancelled'])
                 ->default('enrolled');
-            $table->timestamps();
             $table->unique(['student_id', 'course_id']);
+            $table->timestamps();
         });
     }
 

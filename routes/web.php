@@ -33,12 +33,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('students', StudentController::class);
     Route::resource('enrollments', StudentEnrollmentController::class);
 
-    // Route::get('/courses/{course}/info', function (\App\Models\Course $course) {
-    //     return response()->json([
-    //         'duration' => $course->duration,
-    //         'price'    => $course->price,
-    //     ]);
-    // })->name('courses.info');
+    Route::get('/courses/{course}/info', function (\App\Models\Course $course) {
+        return response()->json([
+            'duration' => $course->duration,
+            'price'    => $course->price,
+        ]);
+    })->name('courses.info');
 });
 
 require __DIR__.'/auth.php';

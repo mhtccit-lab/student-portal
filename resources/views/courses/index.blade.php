@@ -14,8 +14,8 @@
             </div>
         @endif
         <table class="w-full border">
-            <thead class="bg-gray-100">
-                <tr class="p-4 bg-purple-50 hover:bg-purple-100 rounded shadow text-center">
+            <thead class="p-4 bg-purple-50 hover:bg-purple-100 rounded shadow text-center">
+                <tr>
                     <th class="p-2 border">Trade</th>
                     <th class="p-2 border">Name</th>
                     <th class="p-2 border">Duration</th>

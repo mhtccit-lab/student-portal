@@ -19,7 +19,7 @@
             <h2 class="text-3xl font-extrabold bg-clip-text text-transparent
                     bg-gradient-to-r from-blue-600 via-purple-500 to-red-500
                     animate-gradient">
-                MUSA GROUP BD INSTITUTE OVERVIEW
+                MUSA GROUP BD INSTITUTE
             </h2>
         </div>
     </x-slot>

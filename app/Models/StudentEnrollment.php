@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class StudentEnrollment extends Model
 {
     use HasFactory; 
+    // Optional but recommended (explicit)
+    protected $table = 'student_enrollments';
 
     protected $fillable = [
         'student_id',
@@ -18,6 +20,7 @@ class StudentEnrollment extends Model
         'status',
     ];
 
+    // Relationships
     public function student()
     {
         return $this->belongsTo(Student::class);
