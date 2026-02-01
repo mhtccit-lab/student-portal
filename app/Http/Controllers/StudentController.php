@@ -146,14 +146,14 @@ class StudentController extends Controller
         'card_number'       => 'required',
         'passport_expiry_date' => 'nullable|date',
         'card_file' => [
-            'required',
+            'nullable',
             'file',
             'mimes:jpg,jpeg,png,webp',
             'max:5120', // 5 MB
         ],
 
         'photo' => [
-            'required',
+            'nullable',
             'image',
             'mimes:jpg,jpeg,png,webp',
             'max:2048', // 2 MB

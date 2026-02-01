@@ -34,7 +34,7 @@
                         <tr>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">#</th>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Trade</th>
-                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Name</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Course Name</th>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Duration</th>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Price</th>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
@@ -58,11 +58,15 @@
                             <td class="px-4 py-3 text-sm">
                                 <a href="{{ route('courses.edit', $course) }}"
                                 class="text-blue-600">Edit</a>
-                                <form action="{{ route('courses.destroy', $course) }}"
-                                    method="POST" class="inline">
-                                    @csrf @method('DELETE')
-                                    <button class="text-red-600"
-                                            onclick="return confirm('Delete this course?')">
+                                <form method="POST"
+                                    action="{{ route('courses.destroy', $course->id) }}"
+                                    class="delete-form inline">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="button"
+                                            onclick="confirmDelete(this)"
+                                            class="text-red-600 hover:text-red-800">
                                         Delete
                                     </button>
                                 </form>

@@ -59,11 +59,16 @@
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     <a href="{{ route('students.edit',$student) }}" class="text-blue-600">Edit</a>
-                                    <form method="POST" action="{{ route('students.destroy',$student) }}" class="inline">
-                                        @csrf @method('DELETE')
-                                        <button class="text-red-600"
-                                        onclick="return confirm('Delete student?')">
-                                        Delete
+                                    <form method="POST"
+                                        action="{{ route('students.destroy', $student->id) }}"
+                                        class="delete-form inline">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="button"
+                                                onclick="confirmDelete(this)"
+                                                class="text-red-600 hover:text-red-800">
+                                            Delete
                                         </button>
                                     </form>
                                 </td>

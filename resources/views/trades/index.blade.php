@@ -56,13 +56,15 @@
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     <a href="{{ route('trades.edit', $trade) }}" class="text-blue-600 mr-2">Edit</a>
-
-                                    <form action="{{ route('trades.destroy', $trade) }}"
-                                        method="POST" class="inline">
+                                    <form method="POST"
+                                        action="{{ route('trades.destroy', $trade->id) }}"
+                                        class="delete-form inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button onclick="return confirm('Delete this trade?')"
-                                                class="text-red-600">
+
+                                        <button type="button"
+                                                onclick="confirmDelete(this)"
+                                                class="text-red-600 hover:text-red-800 delete-form">
                                             Delete
                                         </button>
                                     </form>

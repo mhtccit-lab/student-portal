@@ -97,15 +97,15 @@
                                             Edit
                                         </a>
 
-                                        <form action="{{ route('enrollments.destroy', $enrollment->id) }}"
-                                              method="POST"
-                                              class="inline-block"
-                                              onsubmit="return confirm('Are you sure?')">
+                                        <form method="POST"
+                                            action="{{ route('enrollments.destroy', $enrollment->id) }}"
+                                            class="delete-form inline">
                                             @csrf
                                             @method('DELETE')
 
-                                            <button type="submit"
-                                                    class="text-red-600 hover:text-red-900 text-sm">
+                                            <button type="button"
+                                                    onclick="confirmDelete(this)"
+                                                    class="text-red-600 hover:text-red-800">
                                                 Delete
                                             </button>
                                         </form>

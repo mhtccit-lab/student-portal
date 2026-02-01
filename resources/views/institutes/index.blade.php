@@ -57,12 +57,15 @@
                                     <a href="{{ route('institutes.edit', $institute) }}"
                                     class="text-blue-600">Edit</a>
 
-                                    <form action="{{ route('institutes.destroy', $institute) }}"
-                                        method="POST" class="inline">
+                                    <form method="POST"
+                                        action="{{ route('institutes.destroy', $institute->id) }}"
+                                        class="delete-form inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button onclick="return confirm('Delete this institute?')"
-                                                class="text-red-600">
+
+                                        <button type="button"
+                                                onclick="confirmDelete(this)"
+                                                class="text-red-600 hover:text-red-800">
                                             Delete
                                         </button>
                                     </form>
