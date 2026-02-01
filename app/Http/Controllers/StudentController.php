@@ -221,4 +221,41 @@ class StudentController extends Controller
         return redirect()->route('students.index')
             ->with('success','Student deleted');
     }
+
+    // 🔥 TRASH LIST
+    public function trash()
+    {
+        $students = Student::onlyTrashed()->paginate(10);
+        return view('students.trash', compact('students'));
+    }
+
+    // ♻ RESTORE
+    public function restore($id)
+    {
+        $student = Student::onlyTrashed()->findOrFail($id);
+        $student->restore();
+
+        return redirect()
+            ->route('students.trash')
+            ->with('success', 'Student restored successfully.');
+    }
+
+    // ❌ PERMANENT DELETE (THIS IS #7)
+    public function forceDelete($id)
+    {
+        $student = Student::onlyTrashed()->findOrFail($id);
+
+        // delete files permanently
+        if ($student->photo) {
+            Storage::disk('public')->delete($student->photo);
+        }
+
+        if ($student->card_file) {
+            Storage::disk('public')->delete($student->card_file);
+        }
+
+        $student->forceDelete();
+
+        return back()->with('success', 'Student permanently deleted.');
+    }
 }

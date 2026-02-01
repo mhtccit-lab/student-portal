@@ -51,28 +51,33 @@
                                     </td>
 
                                     <td class="px-4 py-3 text-sm font-medium text-gray-800">
-                                        {{ $enrollment->student->full_name_english }}
+                                        @if($enrollment->student)
+                                            {{ $enrollment->student->full_name_english }}
+                                        @else
+                                            <span class="text-red-500 text-sm">Student deleted</span>
+                                        @endif
+                                        {{-- {{ $enrollment->student->full_name_english }} --}}
                                     </td>
 
                                     <td class="px-4 py-3 text-sm">
-                                        {{ $enrollment->institute->name }}
+                                        {{ $enrollment->institute?->name ?? 'N/A' }}
                                     </td>
 
                                     <td class="px-4 py-3 text-sm">
-                                        {{ $enrollment->trade->name }}
+                                        {{ $enrollment->trade?->name ?? 'N/A' }}
                                     </td>
 
                                     <td class="px-4 py-3 text-sm">
-                                        {{ $enrollment->course->name }}
+                                        {{ $enrollment->course?->name ?? 'N/A' }}
                                     </td>
 
                                     <td class="px-4 py-3 text-sm">
-                                        {{ $enrollment->created_at->format('d M Y') }}
+                                        {{ $enrollment->created_at?->format('d M Y') ?? 'N/A' }}
                                     </td>
 
                                     {{-- Status Badge --}}
                                     <td class="px-4 py-3 text-center">
-                                        @if($enrollment->status === 'enrolled')
+                                        @if($enrollment->status === 'enrolled' )
                                             <span class="px-3 py-1 text-xs font-semibold
                                                 bg-green-100 text-green-700 rounded-full">
                                                 Enrolled
@@ -97,7 +102,7 @@
                                             Edit
                                         </a>
 
-                                        <form method="POST"
+                                        {{-- <form method="POST"
                                             action="{{ route('enrollments.destroy', $enrollment->id) }}"
                                             class="delete-form inline">
                                             @csrf
@@ -106,6 +111,19 @@
                                             <button type="button"
                                                     onclick="confirmDelete(this)"
                                                     class="text-red-600 hover:text-red-800">
+                                                Delete
+                                            </button>
+                                        </form> --}}
+                                        <form action="{{ route('enrollments.destroy', $enrollment->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this enrollment?');"
+                                            class="delete-form inline">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="button"
+                                                    onclick="confirmDelete(this)"
+                                                    class="text-red-600 hover:text-red-800 font-medium">
                                                 Delete
                                             </button>
                                         </form>

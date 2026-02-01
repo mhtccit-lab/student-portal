@@ -13,6 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-heroicon-o-home class="w-5 h-5 mr-2" />
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
@@ -21,6 +22,7 @@
                     <x-nav-link 
                         :href="route('institutes.index')" 
                         :active="request()->routeIs('institutes.*')">
+                        <x-heroicon-o-building-office-2 class="w-5 h-5 mr-2" />
                         {{ __('Institutes') }}
                     </x-nav-link>
                 </div>
@@ -28,7 +30,8 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link 
                         :href="route('trades.index')" 
-                        :active="request()->routeIs('trades.*')">
+                        :active="request()->routeIs('trades.*')">                        
+                        <x-heroicon-o-briefcase class="w-5 h-5 mr-2" />
                         {{ __('Trades') }}
                     </x-nav-link>
                 </div>
@@ -37,26 +40,64 @@
                     <x-nav-link 
                         :href="route('courses.index')" 
                         :active="request()->routeIs('courses.*')">
+                        <x-heroicon-o-academic-cap class="w-5 h-5 mr-2" />
                         {{ __('Courses') }}
                     </x-nav-link>
-                </div>
-                
+                </div>                
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link 
-                        :href="route('students.index')" 
-                        :active="request()->routeIs('students.*')">
-                        {{ __('Students') }}
-                    </x-nav-link>
+                    <div class="hidden sm:flex sm:items-center">
+                        <div class="relative">
+                            <x-dropdown align="left" width="48">
+                                <x-slot name="trigger">
+                                    <button class="inline-flex items-center px-3 py-2 text-sm
+                                                font-medium text-gray-600 hover:text-gray-800">
+                                        Students
+                                        <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </button>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('students.index')">
+                                        <x-heroicon-o-users class="w-5 h-5 mr-2" />
+                                        Student List
+                                    </x-dropdown-link>
+
+                                    <x-dropdown-link :href="route('students.create')">
+                                        <x-heroicon-o-user-plus class="w-5 h-5 mr-2" />
+                                        Add Student
+                                    </x-dropdown-link>
+
+                                    <div class="border-t my-1"></div>
+                                    @php
+                                        $trashedCount = \App\Models\Student::onlyTrashed()->count();
+                                    @endphp
+                                    <x-dropdown-link :href="route('students.trash')">
+                                        🗑 Trashed Students
+                                        @if($trashedCount > 0)
+                                            <span class="ml-2 text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">
+                                                {{ $trashedCount }}
+                                            </span>
+                                        @endif
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link 
                         :href="route('enrollments.index')" 
                         :active="request()->routeIs('enrollments.*')">
+                        <x-heroicon-o-clipboard-document-check class="w-5 h-5 mr-2" />
                         {{ __('Enrollments') }}
                     </x-nav-link>
-                </div>
-                
+                </div>                
             </div>
 
             <!-- Settings Dropdown -->

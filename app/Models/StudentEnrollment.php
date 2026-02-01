@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StudentEnrollment extends Model
 {
-    use HasFactory; 
+    use SoftDeletes; 
     // Optional but recommended (explicit)
     protected $table = 'student_enrollments';
 
@@ -23,7 +24,7 @@ class StudentEnrollment extends Model
     // Relationships
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class)->withTrashed();
     }
 
     public function institute()

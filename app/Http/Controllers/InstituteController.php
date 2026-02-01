@@ -47,7 +47,7 @@ class InstituteController extends Controller
 
         return redirect()
             ->route('institutes.index')
-            ->with('success', 'Institute created successfully');
+            ->with('success', 'Institute Created Successfully');
     }
 
 
@@ -83,7 +83,7 @@ class InstituteController extends Controller
 
         return redirect()
             ->route('institutes.index')
-            ->with('success', 'Institute updated successfully');
+            ->with('success', 'Institute Updated Successfully');
     }
 
     /**
@@ -95,6 +95,6 @@ class InstituteController extends Controller
 
         return redirect()
             ->route('institutes.index')
-            ->with('success', 'Institute deleted successfully.');
+            ->with('success', 'Institute Deleted Successfully.');
     }
 }

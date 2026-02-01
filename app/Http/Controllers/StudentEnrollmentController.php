@@ -108,8 +108,12 @@ class StudentEnrollmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(StudentEnrollment $enrollment)
     {
-        //
+        $enrollment->delete(); // soft delete
+
+        return redirect()
+            ->route('enrollments.index')
+            ->with('success', 'Enrollment deleted successfully.');
     }
 }

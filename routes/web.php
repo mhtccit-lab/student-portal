@@ -39,6 +39,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'price'    => $course->price,
         ]);
     })->name('courses.info');
-});
+
+    // Trash list
+    Route::get('students-trash', [StudentController::class, 'trash'])
+        ->name('students.trash');
+
+    // Restore
+    Route::patch('students/{id}/restore', [StudentController::class, 'restore'])
+        ->name('students.restore');
+
+    // Force delete (permanent)
+    Route::delete('students/{id}/force-delete', [StudentController::class, 'forceDelete'])
+        ->name('students.forceDelete');
+    });
 
 require __DIR__.'/auth.php';
