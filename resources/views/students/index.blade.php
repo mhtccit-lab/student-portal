@@ -57,7 +57,7 @@
                                         {{ ucfirst($student->status) }}
                                     </span>
                                 </td>
-                                <td class="border p-2">
+                                <td class="px-4 py-3 text-sm">
                                     <a href="{{ route('students.edit',$student) }}" class="text-blue-600">Edit</a>
                                     <form method="POST" action="{{ route('students.destroy',$student) }}" class="inline">
                                         @csrf @method('DELETE')

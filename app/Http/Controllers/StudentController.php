@@ -74,11 +74,11 @@ class StudentController extends Controller
         // Card file upload
         if ($request->hasFile('card_file')) {
             $cardExt = $request->file('card_file')->getClientOriginalExtension();
-            $validated['card_file'] = "students/passport_or_nid_card_files//{$username}_card_file.{$cardExt}";
+            $validated['card_file'] = "students/cards/{$username}_card.{$cardExt}";
 
             $request->file('card_file')->storeAs(
-                'students/passport_or_nid_card_files/',
-                "{$username}_card_file.{$cardExt}",
+                'students/cards',
+                "{$username}_card.{$cardExt}",
                 'public'
             );
         }
@@ -180,11 +180,11 @@ class StudentController extends Controller
         }
 
         $ext = $request->file('card_file')->getClientOriginalExtension();
-        $validated['card_file'] = "students/passport_or_nid_card_files//{$username}_{$student->id}_card_file.{$ext}";
+        $validated['card_file'] = "students/cards/{$username}_{$student->id}_card.{$ext}";
 
         $request->file('card_file')->storeAs(
-            'students/passport_or_nid_card_files/',
-            "{$username}_{$student->id}_card_file.{$ext}",
+            'students/cards',
+            "{$username}_{$student->id}_card.{$ext}",
             'public'
         );
     }
