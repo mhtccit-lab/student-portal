@@ -111,7 +111,7 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @empty
+                                @empty
                                 <tr>
                                     <td colspan="8" class="px-4 py-6 text-center text-gray-500">
                                         No enrollments found.

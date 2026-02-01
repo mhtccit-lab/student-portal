@@ -28,46 +28,62 @@
             @endif
 
 
-    <table class="w-full border">
-        <thead class="p-4 bg-green-50 hover:bg-green-100 rounded shadow text-center">
-            <tr>
-                <th class="p-2 border">Institute</th>
-                <th class="p-2 border">Trade</th>
-                <th class="p-2 border">Status</th>
-                <th class="p-2 border">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($trades as $trade)
-            <tr>
-                <td class="p-2 border">{{ $trade->institute->name }}</td>
-                <td class="p-2 border">{{ $trade->name }}</td>
-                <td class="p-2 border">
-                    <span class="px-2 py-1 text-sm rounded
-                        {{ $trade->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
-                        {{ ucfirst($trade->status) }}
-                    </span>
-                </td>
-                <td class="p-2 border">
-                    <a href="{{ route('trades.edit', $trade) }}" class="text-blue-600 mr-2">Edit</a>
+            {{-- Table --}}
+            <div class="bg-white shadow rounded-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">#</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Institute</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Trade</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Action</th>
+                            </tr>
+                        </thead>
 
-                    <form action="{{ route('trades.destroy', $trade) }}"
-                          method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button onclick="return confirm('Delete this trade?')"
-                                class="text-red-600">
-                            Delete
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                        <tbody>
+                            @forelse($trades as $trade)
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $trade->institute->name }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $trade->name }}</td>
+                                <td class="px-4 py-3 text-sm">
+                                    <span class="px-2 py-1 text-sm rounded
+                                        {{ $trade->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
+                                        {{ ucfirst($trade->status) }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    <a href="{{ route('trades.edit', $trade) }}" class="text-blue-600 mr-2">Edit</a>
 
-    <div class="mt-4">
-        {{ $trades->links() }}
+                                    <form action="{{ route('trades.destroy', $trade) }}"
+                                        method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button onclick="return confirm('Delete this trade?')"
+                                                class="text-red-600">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="8" class="px-4 py-6 text-center text-gray-500">
+                                    No institutes found.
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Pagination --}}
+                <div class="px-4 py-3 bg-gray-50">
+                    {{ $trades->links() }}
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </x-app-layout>

@@ -27,45 +27,63 @@
                 </div>
             @endif
 
-    <table class="w-full border">
-        <thead class="p-4 bg-red-50 hover:bg-red-100 rounded shadow text-center">
-            <tr>
-                <th class="border p-2">Name</th>
-                <th class="border p-2">Institute</th>
-                <th class="border p-2">Course</th>
-                <th class="border p-2">Phone</th>
-                <th class="border p-2">Status</th>
-                <th class="border p-2">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($students as $student)
-            <tr>
-                <td class="border p-2">{{ $student->full_name_english }}</td>
-                <td class="border p-2">{{ $student->institute->name }}</td>
-                <td class="border p-2">{{ $student->course->name }}</td>
-                <td class="border p-2">{{ $student->phone }}</td>
-                <td class="p-2 border">
-                    <span class="px-2 py-1 text-sm rounded
-                        {{ $student->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
-                        {{ ucfirst($student->status) }}
-                    </span>
-                </td>
-                <td class="border p-2">
-                    <a href="{{ route('students.edit',$student) }}" class="text-blue-600">Edit</a>
-                    <form method="POST" action="{{ route('students.destroy',$student) }}" class="inline">
-                        @csrf @method('DELETE')
-                        <button class="text-red-600"
-                          onclick="return confirm('Delete student?')">
-                          Delete
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+            {{-- Table --}}
+            <div class="bg-white shadow rounded-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">#</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Name</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Institute</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Course</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Phone</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Action</th>
+                            </tr>
+                        </thead>
 
-    {{ $students->links() }}
-</div>
+                        <tbody class="divide-y divide-gray-200">
+                            @forelse($students as $student)
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-3 text-sm font-medium text-gray-800">{{ $student->full_name_english }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $student->institute->name }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $student->course->name }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $student->phone }}</td>
+                                <td class="px-4 py-3 text-sm">
+                                    <span class="px-2 py-1 text-sm rounded
+                                        {{ $student->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
+                                        {{ ucfirst($student->status) }}
+                                    </span>
+                                </td>
+                                <td class="border p-2">
+                                    <a href="{{ route('students.edit',$student) }}" class="text-blue-600">Edit</a>
+                                    <form method="POST" action="{{ route('students.destroy',$student) }}" class="inline">
+                                        @csrf @method('DELETE')
+                                        <button class="text-red-600"
+                                        onclick="return confirm('Delete student?')">
+                                        Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="8" class="px-4 py-6 text-center text-gray-500">
+                                    No institutes found.
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Pagination --}}
+                <div class="px-4 py-3 bg-gray-50">
+                    {{ $students->links() }}
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>

@@ -32,28 +32,30 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="p-2 border">Trade</th>
-                            <th class="p-2 border">Name</th>
-                            <th class="p-2 border">Duration</th>
-                            <th class="p-2 border">Price</th>
-                            <th class="p-2 border">Status</th>
-                            <th class="p-2 border">Action</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">#</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Trade</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Name</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Duration</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Price</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Action</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @foreach($courses as $course)
-                        <tr>
-                            <td class="p-2 border">{{ $course->trade->name }}</td>
-                            <td class="p-2 border">{{ $course->name }}</td>
-                            <td class="p-2 border">{{ $course->duration }}</td>
-                            <td class="p-2 border">{{ $course->price }}</td>
-                            <td class="p-2 border">
+                        @forelse($courses as $course)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
+                            <td class="px-4 py-3 text-sm">{{ $course->trade->name }}</td>
+                            <td class="px-4 py-3 text-sm">{{ $course->name }}</td>
+                            <td class="px-4 py-3 text-sm">{{ $course->duration }}</td>
+                            <td class="px-4 py-3 text-sm">{{ $course->price }}</td>
+                            <td class="px-4 py-3 text-sm">
                                 <span class="px-2 py-1 text-sm rounded
                                     {{ $course->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
                                     {{ ucfirst($course->status) }}
                                 </span>
                             </td>
-                            <td class="p-2 border">
+                            <td class="px-4 py-3 text-sm">
                                 <a href="{{ route('courses.edit', $course) }}"
                                 class="text-blue-600">Edit</a>
                                 <form action="{{ route('courses.destroy', $course) }}"
@@ -66,7 +68,13 @@
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="8" class="px-4 py-6 text-center text-gray-500">
+                                    No institutes found.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
