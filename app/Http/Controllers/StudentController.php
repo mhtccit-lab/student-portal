@@ -55,11 +55,11 @@ class StudentController extends Controller
             'district'              => 'required|string|max:255',
             'police_station'        => 'required|string|max:255',
             'postal_code'           => 'required|string|max:20',
-            'types_of_card'     => 'required|in:nid,passport',
+            'types_of_card'         => 'required|in:nid,passport',
             'card_number'           => 'required|string|max:255',
             'passport_expiry_date'  => 'required|date',
-            'card_file'         => 'required|file',
-            'photo'             => 'required|image',
+            'card_file'             => ['required','file','mimes:jpg,jpeg,png,webp','max:5120',],// 5 MB
+            'photo' => ['required','image','mimes:jpg,jpeg,png,webp','max:2048', ],// 2 MB
             'institute_id'      => 'required|exists:institutes,id',
             'trade_id'          => 'required|exists:trades,id',
             'course_id'         => 'required|exists:courses,id',
@@ -145,6 +145,19 @@ class StudentController extends Controller
         'types_of_card'     => 'required|in:nid,passport',
         'card_number'       => 'required',
         'passport_expiry_date' => 'nullable|date',
+        'card_file' => [
+            'required',
+            'file',
+            'mimes:jpg,jpeg,png,webp',
+            'max:5120', // 5 MB
+        ],
+
+        'photo' => [
+            'required',
+            'image',
+            'mimes:jpg,jpeg,png,webp',
+            'max:2048', // 2 MB
+        ],
         'institute_id'      => 'required|exists:institutes,id',
         'trade_id'          => 'required|exists:trades,id',
         'course_id'         => 'required|exists:courses,id',

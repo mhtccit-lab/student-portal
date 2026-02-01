@@ -36,7 +36,7 @@ return new class extends Migration
             $table->integer('course_duration');
             $table->string('course_fee');
             $table->string('amount_receiver_name');            
-            $table->enum('status', ['active','inactive'])->default('active');
+            $table->enum('status', ['active','inactive'])->default('inactive');
             $table->timestamps();
         });
     }

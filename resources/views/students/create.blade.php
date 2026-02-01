@@ -39,8 +39,9 @@
                 <label class="block mb-1">Gender</label>
                 <select name="gender" class="w-full border p-2">
                     <option value="">Select</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                    <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                    <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                    <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}>Other</option>
                 </select>
             </div>
 
@@ -87,55 +88,55 @@
             {{-- District --}}
             <div>
                 <label class="block mb-1">District</label>
-                <input name="district" class="w-full border p-2">
+                <input name="district" class="w-full border p-2" value="{{ old('district') }}">
             </div>
 
             {{-- Police Station --}}
             <div>
                 <label class="block mb-1">Police Station</label>
-                <input name="police_station" class="w-full border p-2">
+                <input name="police_station" class="w-full border p-2" value="{{ old('police_station') }}">
             </div>
 
             {{-- Postal Code --}}
             <div>
                 <label class="block mb-1">Postal Code</label>
-                <input name="postal_code" class="w-full border p-2">
+                <input name="postal_code" class="w-full border p-2" value="{{ old('postal_code') }}">
             </div>
 
             {{-- Card Type --}}
             <div>
                 <label class="block mb-1">Type of Card</label>
                 <select name="types_of_card" class="w-full border p-2">
-                    <option value="passport">Passport</option>
-                    <option value="nid">NID</option>
+                    <option value="passport" {{ old('types_of_card') == 'passport' ? 'selected' : '' }}>Passport</option>
+                    <option value="nid" {{ old('types_of_card') == 'nid' ? 'selected' : '' }}>NID</option>
                 </select>
             </div>
 
             {{-- Card Number --}}
             <div>
                 <label class="block mb-1">Card Number</label>
-                <input name="card_number" class="w-full border p-2">
+                <input name="card_number" class="w-full border p-2" value="{{ old('card_number') }}">
             </div>
 
             {{-- Passport Expiry --}}
             <div>
                 <label class="block mb-1">Passport Expiry Date</label>
                 <input type="date" name="passport_expiry_date"
-                       class="w-full border p-2">
+                       class="w-full border p-2" value="{{ old('passport_expiry_date') }}">
             </div>
 
             {{-- Card File --}}
             <div>
                 <label class="block mb-1">Card File</label>
                 <input type="file" name="card_file"
-                       class="w-full border p-2">
+                       class="w-full border p-2" value="{{ old('card_file') }}">
             </div>
 
             {{-- Photo --}}
             <div>
                 <label class="block mb-1">Photo</label>
                 <input type="file" name="photo"
-                       class="w-full border p-2">
+                       class="w-full border p-2" value="{{ old('photo') }}">
             </div>
 
             {{-- Institute --}}
@@ -143,7 +144,7 @@
                 <label class="block mb-1">Institute</label>
                 <select name="institute_id" class="w-full border p-2">
                     @foreach($institutes as $institute)
-                        <option value="{{ $institute->id }}">
+                        <option value="{{ $institute->id }}" {{ old('institute_id') == $institute->id ? 'selected' : '' }}>
                             {{ $institute->name }}
                         </option>
                     @endforeach
@@ -155,7 +156,7 @@
                 <label class="block mb-1">Trade</label>
                 <select name="trade_id" class="w-full border p-2">
                     @foreach($trades as $trade)
-                        <option value="{{ $trade->id }}">
+                        <option value="{{ $trade->id }}" {{ old('trade_id') == $trade->id ? 'selected' : '' }}>
                             {{ $trade->name }}
                         </option>
                     @endforeach
@@ -168,7 +169,7 @@
                 <select name="course_id" id="course_id" class="w-full border p-2">
                   <option value="">Select Course</option>
                   @foreach($courses as $course)
-                      <option value="{{ $course->id }}">
+                      <option value="{{ $course->id }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
                           {{ $course->name }}
                       </option>
                   @endforeach
@@ -192,22 +193,22 @@
             <div>
                 <label class="block mb-1">Amount Receiver Name</label>
                 <input name="amount_receiver_name"
-                       class="w-full border p-2">
+                       class="w-full border p-2" value="{{ old('amount_receiver_name') }}">
             </div>
 
             {{-- Reference --}}
             <div>
                 <label class="block mb-1">Reference Name</label>
                 <input name="reference_name"
-                       class="w-full border p-2">
+                       class="w-full border p-2" value="{{ old('reference_name') }}">
             </div>
 
             {{-- Status --}}
             <div>
                 <label class="block mb-1">Status</label>
                 <select name="status" class="w-full border p-2">
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
+                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
+                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                 </select>
             </div>
 
