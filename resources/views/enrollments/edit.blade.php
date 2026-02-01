@@ -7,8 +7,16 @@
 
     <div class="py-8">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-
             <div class="bg-white shadow rounded-lg p-6">
+                @if ($errors->any())
+                    <div class="bg-red-100 text-red-700 p-3 mb-4">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <form method="POST"
                       action="{{ route('enrollments.update', $enrollment->id) }}">
@@ -78,24 +86,6 @@
                             @endforeach
                         </select>
                     </div>
-
-                    {{-- Status --}}
-                    {{-- <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700">
-                            Status
-                        </label>
-                        <select name="status"
-                                class="mt-1 w-full border-gray-300 rounded-md">
-                            <option value="active"
-                                {{ $enrollment->status == 'active' ? 'selected' : '' }}>
-                                Active
-                            </option>
-                            <option value="inactive"
-                                {{ $enrollment->status == 'inactive' ? 'selected' : '' }}>
-                                Inactive
-                            </option>
-                        </select>
-                    </div> --}}
 
                     {{-- Status --}}
                     <div class="mb-6">

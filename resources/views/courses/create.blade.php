@@ -1,5 +1,14 @@
      <x-app-layout>
      <div class="max-w-xl mx-auto py-6">
+          @if ($errors->any())
+            <div class="bg-red-100 text-red-700 p-3 mb-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
           <form method="POST" action="{{ route('courses.store') }}">
                @csrf
 
@@ -10,9 +19,9 @@
                     @endforeach
                </select>
 
-               <input name="name" class="w-full border p-2 mb-3" placeholder="Course Name">
-               <input name="duration" class="w-full border p-2 mb-3" placeholder="Duration">
-               <input name="price" class="w-full border p-2 mb-3" placeholder="Price">
+               <input type="text" name="name" class="w-full border p-2 mb-3" placeholder="Course Name">
+               <input type="number" name="duration" class="w-full border p-2 mb-3" placeholder="Duration">
+               <input type="number" name="price" class="w-full border p-2 mb-3" placeholder="Price">
 
                <select name="status" class="w-full border p-2 mb-3">
                     <option value="active">Active</option>

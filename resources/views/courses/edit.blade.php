@@ -2,7 +2,15 @@
     <div class="max-w-xl mx-auto py-6">
 
         <h2 class="text-xl font-bold mb-4">Edit Course</h2>
-
+        @if ($errors->any())
+            <div class="bg-red-100 text-red-700 p-3 mb-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="{{ route('courses.update', $course) }}">
             @csrf
             @method('PUT')
@@ -38,7 +46,7 @@
             {{-- Duration --}}
             <div class="mb-3">
                 <label class="block mb-1">Duration</label>
-                <input type="text"
+                <input type="number"
                        name="duration"
                        class="w-full border p-2"
                        value="{{ old('duration', $course->duration) }}">

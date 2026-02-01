@@ -1,6 +1,15 @@
 <x-app-layout>
 <div class="max-w-4xl mx-auto py-6">
     <h2 class="text-2xl font-bold mb-6">New Enrollment</h2>
+    @if ($errors->any())
+        <div class="bg-red-100 text-red-700 p-3 mb-4">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('enrollments.store') }}" method="POST">
         @csrf
 

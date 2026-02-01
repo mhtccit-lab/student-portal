@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('institutes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('code')->unique();
             $table->text('address')->nullable();
-            $table->enum('status', ['active','inactive'])->default('active');
+            $table->enum('status', ['active','inactive'])->default('inactive');
             $table->timestamps();
         });
     }
