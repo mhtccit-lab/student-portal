@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Institute;
 use App\Models\StudentEnrollment;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class StudentEnrollmentController extends Controller
@@ -24,7 +25,7 @@ class StudentEnrollmentController extends Controller
         'course'
     ])->latest()->paginate(10);
 
-        return view('enrollments.index', compact('enrollments'));
+    return view('enrollments.index', compact('enrollments'));
     }
 
     /**
@@ -32,11 +33,22 @@ class StudentEnrollmentController extends Controller
      */
     public function create()
     {
+        // return view('enrollments.create', [
+        //     'students'   => Student::with('course','trade','institute')->get(),
+        //     'institutes' => Institute::all(),
+        //     'trades'     => Trade::all(),
+        //     'courses'    => Course::all(),
+        // ]);
+        // $existingEnrollments = StudentEnrollment::pluck('course_id', 'student_id');
+
+        $enrolledStudentIds = StudentEnrollment::pluck('student_id')->unique();
+
         return view('enrollments.create', [
-            'students'   => Student::with('course','trade','institute')->get(),
+            'students' => Student::all(),
+            'enrolledStudentIds' => $enrolledStudentIds,
             'institutes' => Institute::all(),
-            'trades'     => Trade::all(),
-            'courses'    => Course::all(),
+            'trades' => Trade::all(),
+            'courses' => Course::all(),
         ]);
     }
 
@@ -45,21 +57,29 @@ class StudentEnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $validated  = $request->validate([
-            'student_id'       => 'required|exists:students,id',
-            'institute_id'     => 'required|exists:institutes,id',
-            'trade_id'         => 'required|exists:trades,id',
-            'course_id'        => 'required|exists:courses,id',
-            'enroll_date'      => 'required|date',
-            'status'           => 'required',
-        ]);
-    
-        StudentEnrollment::create($validated );
-        return redirect()
-            ->route('enrollments.index')
-            ->with('success', 'Student enrolled successfully');
-        //dd($request->all());
+        $validated = $request->validate([
+        'student_id'   => 'required|exists:students,id',
+        'institute_id' => 'required|exists:institutes,id',
+        'trade_id'     => 'required|exists:trades,id',
+        'course_id' => [
+            'required',
+            'exists:courses,id',
+            Rule::unique('student_enrollments')
+                ->where(fn ($q) =>
+                    $q->where('student_id', $request->student_id)
+                ),
+        ],
+        'enroll_date'  => 'required|date',
+        'status'       => 'required',
+    ], [
+        'course_id.unique' => 'This student is already enrolled in this course.'
+    ]);
+// dd($request->all());
+    StudentEnrollment::create($validated);
+
+    return redirect()
+        ->route('enrollments.index')
+        ->with('success', 'Student Enrolled Successfully');
     }
 
     /**
@@ -96,13 +116,15 @@ class StudentEnrollmentController extends Controller
         'trade_id'     => 'required|exists:trades,id',
         'course_id'    => 'required|exists:courses,id',
         'status'       => 'required|in:enrolled,completed,cancelled',
+    ], [
+        'course_id.unique' => 'This Student is Already Enrolled in this Course.'
     ]);
 
     $enrollment->update($validated);
 
     return redirect()
         ->route('enrollments.index')
-        ->with('success', 'Enrollment updated successfully.');
+        ->with('success', 'Enrollment Updated Successfully.');
     }
 
     /**

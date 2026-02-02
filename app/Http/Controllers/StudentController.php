@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Trade;
 use App\Models\Course;
 use App\Models\Student;
 use App\Models\Institute;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
@@ -16,13 +17,26 @@ class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
+    */
     public function index()
     {
-        $students = Student::with(['institute','trade','course'])
-            ->latest()
-            ->paginate(10);
-
+        // DB::enableQueryLog();
+        
+        // $students = Student::with(['trade:id,name','course:id,name'])
+        //     ->latest()
+        //     ->paginate(10);
+        
+        $students = Student::select([
+            'id',
+            'full_name_english',
+            'trade_id',
+            'course_id',
+            'phone',
+            'status',
+        ])
+        ->with(['trade:id,name','course:id,name'])
+        ->paginate(10);
+        // dd(DB::getQueryLog());
         return view('students.index', compact('students'));
     }
 

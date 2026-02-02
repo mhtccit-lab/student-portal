@@ -35,7 +35,7 @@
                             <tr>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">#</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Name</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Institute</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Trade</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Course</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Phone</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
@@ -46,10 +46,10 @@
                         <tbody class="divide-y divide-gray-200">
                             @forelse($students as $student)
                             <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>                               
                                 <td class="px-4 py-3 text-sm font-medium text-gray-800">{{ $student->full_name_english }}</td>
-                                <td class="px-4 py-3 text-sm">{{ $student->institute->name }}</td>
-                                <td class="px-4 py-3 text-sm">{{ $student->course->name }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $student->trade?->name ?? 'N/A' }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $student->course?->name ?? 'N/A' }}</td>
                                 <td class="px-4 py-3 text-sm">{{ $student->phone }}</td>
                                 <td class="px-4 py-3 text-sm">
                                     <span class="px-2 py-1 text-sm rounded
@@ -76,7 +76,7 @@
                             @empty
                             <tr>
                                 <td colspan="8" class="px-4 py-6 text-center text-gray-500">
-                                    No institutes found.
+                                    No Student found.
                                 </td>
                             </tr>
                             @endforelse
