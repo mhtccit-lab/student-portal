@@ -133,7 +133,7 @@
 
             {{-- Passport Expiry --}}
             <div>
-                <label class="block mb-1">Passport Expiry Date</label>
+                <label class="block mb-1">Expiry Date</label>
                 <input type="date" name="passport_expiry_date"
                        class="w-full border p-2" value="{{ old('passport_expiry_date') }}">
             </div>

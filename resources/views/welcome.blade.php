@@ -9,7 +9,8 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-
+        <script src="https://cdn.tailwindcss.com"></script>
+        
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
             @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -19,8 +20,8 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
+    <body class="bg-gray-50 text-gray-800">
+        <header class="hidden display-none w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
@@ -48,23 +49,111 @@
                     @endauth
                 </nav>
             @endif
-        </header>
-        <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-            <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
-                <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
-                    <h1 class="mb-1 font-medium">Musa Training and Testing Center</h1>
-                   
-                </div>
-                <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
-                   
-                    
-                
-                </div>
-            </main>
-        </div>
 
-        @if (Route::has('login'))
-            <div class="h-14.5 hidden lg:block"></div>
-        @endif
+            {{-- @if (Route::has('login'))
+                <div class="h-14.5 hidden lg:block"></div>
+            @endif --}}
+        </header>
+        <!-- HERO SECTION -->
+        <section class="bg-gradient-to-r from-blue-700 to-indigo-700 text-white">
+            <div class="max-w-7xl mx-auto px-6 py-20 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    Welcome to Musa Group BD
+                </h1>
+                <p class="text-lg md:text-xl mb-8">
+                    Professional Training & Skill Development Institute
+                </p>
+
+                <div class="flex justify-center gap-4 flex-wrap">
+                    <a href="{{ url('/courses') }}"
+                    class="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                        View Courses
+                    </a>
+
+                    <a href="{{ route('login') }}"
+                    class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-700 transition">
+                        Student Portal
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section class="max-w-7xl mx-auto px-6 py-16">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold mb-4">About Us</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    Musa Group BD is committed to delivering high-quality vocational
+                    and professional training programs designed to prepare students
+                    for real-world careers.
+                </p>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="bg-white py-16">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-lg shadow">
+                    <div class="text-4xl mb-3">🎓</div>
+                    <h3 class="font-semibold text-lg mb-2">Certified Courses</h3>
+                    <p class="text-gray-600">
+                        Industry-relevant courses with recognized certification.
+                    </p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg shadow">
+                    <div class="text-4xl mb-3">👨‍🏫</div>
+                    <h3 class="font-semibold text-lg mb-2">Expert Trainers</h3>
+                    <p class="text-gray-600">
+                        Learn from experienced instructors and professionals.
+                    </p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg shadow">
+                    <div class="text-4xl mb-3">💼</div>
+                    <h3 class="font-semibold text-lg mb-2">Career Support</h3>
+                    <p class="text-gray-600">
+                        Job-oriented training with real-world applications.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION -->
+        <section class="bg-blue-50 py-16 text-center">
+            <h2 class="text-3xl font-bold mb-4">
+                Ready to Start Your Career?
+            </h2>
+            <p class="text-gray-700 mb-6">
+                Explore our courses and enroll today.
+            </p>
+
+            <a href="{{ url('/courses') }}"
+            class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
+                Browse Courses
+            </a>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="bg-gray-100 mx-auto py-10">
+            <div class="bg-gray-100 rounded-lg p-8 text-center">
+                <h2 class="text-2xl font-bold mb-4">Contact Us</h2>
+
+                <p class="mb-2">📍 Address: House: 2153, 2165 Road; 49, 50 North South Avenue-1. Block: I Extension, Bashundhara, Dhaka-1212.</p>
+                <p class="mb-2">📞 Phone: +880-1739-301201, +880-1805-000274, +880-1805-000275, +880-1805-000276</p>
+                <p class="mb-2">📧 Email: info@musagroupbd.com</p>
+
+                <p class="text-sm text-gray-600 mt-4">
+                    For course registration, please contact our office or visit the student portal.
+                </p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-gray-800 text-white py-6 text-center">
+            <p class="text-sm">
+                © {{ date('Y') }} Musa Group BD. All rights reserved. Design and Developed by <a href="https://www.facebook.com/yeahyeasarker" target="_blank" class="text-blue-400 hover:underline">Yeahyea Sarker</a>.
+            </p>
+        </footer>        
     </body>
 </html>

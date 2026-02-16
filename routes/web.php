@@ -1,6 +1,7 @@
 <?php
 
 // use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TradeController;
 use App\Http\Controllers\CourseController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\StudentEnrollmentController;
 
+
+Auth::routes(['register' => false]);
 Route::get('/', function () {
     return view('welcome');
 });
@@ -53,4 +56,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('students.forceDelete');
     });
 
+    Route::get('/order-course/{course}', function ($courseId) {
+        return redirect()->route('login')
+            ->with('course_id', $courseId);
+    })->name('course.order');
+    
 require __DIR__.'/auth.php';
