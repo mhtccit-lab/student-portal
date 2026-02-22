@@ -60,6 +60,8 @@ class StudentController extends Controller
         $validated = $request->validate([
             'full_name_english' => 'required|string|max:255',
             'full_name_bangla'  => 'required|string|max:255',
+            'father_name' => 'required|string|max:255',
+            'mother_name' => 'required|string|max:255',
             'gender'            => 'required',
             'phone'             => 'required',
             'email'             => 'required|email|unique:students,email',
@@ -149,6 +151,8 @@ class StudentController extends Controller
        $validated = $request->validate([
         'full_name_english' => 'required|string|max:255',
         'full_name_bangla'  => 'required|string|max:255',
+        'father_name' => 'required|string|max:255',
+        'mother_name' => 'required|string|max:255',
         'gender'            => 'required',
         'phone'             => 'required',
         'email'             => 'required|email|unique:students,email,' . $student->id,

@@ -25,7 +25,7 @@
             <div>
                 <label class="block mb-1">Full Name (English)</label>
                 <input name="full_name_english"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('full_name_english', $student->full_name_english) }}">
             </div>
 
@@ -33,14 +33,26 @@
             <div>
                 <label class="block mb-1">Full Name (Bangla)</label>
                 <input name="full_name_bangla"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('full_name_bangla', $student->full_name_bangla) }}">
+            </div>
+
+            {{-- Father Name --}}
+            <div>
+                <label class="block font-medium text-sm text-gray-700">Father Name</label>
+                <input type="text" name="father_name" value="{{ old('father_name', $student->father_name) }}" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
+            </div>
+
+            {{-- Mother Name --}}
+            <div>
+                <label class="block font-medium text-sm text-gray-700">Mother Name</label>
+                <input type="text" name="mother_name" value="{{ old('mother_name', $student->mother_name) }}" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
             </div>
 
             {{-- Gender --}}
             <div>
                 <label class="block mb-1">Gender</label>
-                <select name="gender" class="w-full border p-2">
+                <select name="gender" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     <option value="Male" {{ old('gender',$student->gender)=='Male'?'selected':'' }}>Male</option>
                     <option value="Female" {{ old('gender',$student->gender)=='Female'?'selected':'' }}>Female</option>
                 </select>
@@ -50,7 +62,7 @@
             <div>
                 <label class="block mb-1">Phone</label>
                 <input name="phone"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('phone', $student->phone) }}">
             </div>
 
@@ -59,7 +71,7 @@
                 <label class="block mb-1">Email</label>
                 <input type="email"
                        name="email"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('email', $student->email) }}">
             </div>
 
@@ -68,7 +80,7 @@
                 <label class="block mb-1">Date of Birth</label>
                 <input type="date"
                        name="date_of_birth"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('date_of_birth', $student->date_of_birth) }}">
             </div>
 
@@ -76,7 +88,7 @@
             <div class="md:col-span-2">
                 <label class="block mb-1">Current Address</label>
                 <textarea name="current_address"
-                          class="w-full border p-2"
+                          class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                           rows="2">{{ old('current_address', $student->current_address) }}</textarea>
             </div>
 
@@ -84,7 +96,7 @@
             <div class="md:col-span-2">
                 <label class="block mb-1">Permanent Address</label>
                 <textarea name="permanent_address"
-                          class="w-full border p-2"
+                          class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                           rows="2">{{ old('permanent_address', $student->permanent_address) }}</textarea>
             </div>
 
@@ -92,7 +104,7 @@
             <div>
                 <label class="block mb-1">District</label>
                 <input name="district"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('district', $student->district) }}">
             </div>
 
@@ -100,7 +112,7 @@
             <div>
                 <label class="block mb-1">Police Station</label>
                 <input name="police_station"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('police_station', $student->police_station) }}">
             </div>
 
@@ -108,14 +120,14 @@
             <div>
                 <label class="block mb-1">Postal Code</label>
                 <input name="postal_code"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('postal_code', $student->postal_code) }}">
             </div>
 
             {{-- Card Type --}}
             <div>
                 <label class="block mb-1">Type of Card</label>
-                <select name="types_of_card" class="w-full border p-2">
+                <select name="types_of_card" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     <option value="passport" {{ old('types_of_card',$student->types_of_card)=='passport'?'selected':'' }}>Passport</option>
                     <option value="nid" {{ old('types_of_card',$student->types_of_card)=='nid'?'selected':'' }}>NID</option>
                 </select>
@@ -125,7 +137,7 @@
             <div>
                 <label class="block mb-1">Card Number</label>
                 <input name="card_number"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('card_number', $student->card_number) }}">
             </div>
 
@@ -134,14 +146,14 @@
                 <label class="block mb-1">Passport Expiry Date</label>
                 <input type="date"
                        name="passport_expiry_date"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('passport_expiry_date', $student->passport_expiry_date) }}">
             </div>
 
             {{-- Card File --}}
             <div>
                 <label class="block mb-1">Card File</label>
-                <input type="file" name="card_file" class="w-full border p-2">
+                <input type="file" name="card_file" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                 @if($student->card_file)
                     <a href="{{ asset('storage/'.$student->card_file) }}"
                        class="text-blue-600 text-sm">View existing file</a>
@@ -151,7 +163,7 @@
             {{-- Photo --}}
             <div>
                 <label class="block mb-1">Photo</label>
-                <input type="file" name="photo" class="w-full border p-2">
+                <input type="file" name="photo" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                 @if($student->photo)
                     <img src="{{ asset('storage/'.$student->photo) }}"
                          class="h-20 mt-2 rounded">
@@ -161,7 +173,7 @@
             {{-- Institute --}}
             <div>
                 <label class="block mb-1">Institute</label>
-                <select name="institute_id" class="w-full border p-2">
+                <select name="institute_id" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     @foreach($institutes as $institute)
                         <option value="{{ $institute->id }}"
                             {{ $student->institute_id == $institute->id ? 'selected' : '' }}>
@@ -174,7 +186,7 @@
             {{-- Trade --}}
             <div>
                 <label class="block mb-1">Trade</label>
-                <select name="trade_id" class="w-full border p-2">
+                <select name="trade_id" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     @foreach($trades as $trade)
                         <option value="{{ $trade->id }}"
                             {{ $student->trade_id == $trade->id ? 'selected' : '' }}>
@@ -187,7 +199,7 @@
             {{-- Course --}}
             <div>
                 <label class="block mb-1">Course</label>
-                <select name="course_id" id="course_id" class="w-full border p-2">
+                <select name="course_id" id="course_id" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     @foreach($courses as $course)
                         <option value="{{ $course->id }}"
                             {{ $student->course_id == $course->id ? 'selected' : '' }}>
@@ -203,7 +215,7 @@
                 <input name="course_duration"
                        id="course_duration"
                        readonly
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('course_duration', $student->course_duration) }}">
             </div>
 
@@ -213,7 +225,7 @@
                 <input name="course_fee"
                        id="course_fee"
                        readonly
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('course_fee', $student->course_fee) }}">
             </div>
 
@@ -221,7 +233,7 @@
             <div>
                 <label class="block mb-1">Amount Receiver Name</label>
                 <input name="amount_receiver_name"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('amount_receiver_name', $student->amount_receiver_name) }}">
             </div>
 
@@ -229,14 +241,14 @@
             <div>
                 <label class="block mb-1">Reference Name</label>
                 <input name="reference_name"
-                       class="w-full border p-2"
+                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
                        value="{{ old('reference_name', $student->reference_name) }}">
             </div>
 
             {{-- Status --}}
             <div>
                 <label class="block mb-1">Status</label>
-                <select name="status" class="w-full border p-2">
+                <select name="status" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     <option value="active" {{ $student->status=='active'?'selected':'' }}>Active</option>
                     <option value="inactive" {{ $student->status=='inactive'?'selected':'' }}>Inactive</option>
                 </select>
