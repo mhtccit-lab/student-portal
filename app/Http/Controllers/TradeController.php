@@ -13,13 +13,19 @@ class TradeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $trades = Trade::with('institute')
-            ->latest()
-            ->paginate(10);
+        $institutes = Institute::select('id','name')->get();
 
-        return view('trades.index', compact('trades'));
+        $trades = \App\Models\Trade::with('institute')
+            ->when($request->institute_id, function ($query) use ($request) {
+                $query->where('institute_id', $request->institute_id);
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('trades.index', compact('trades', 'institutes'));
     }
 
     /**

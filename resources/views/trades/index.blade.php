@@ -27,6 +27,36 @@
                 </div>
             @endif
 
+            {{-- Search Filter --}}
+            <form method="GET" action="{{ route('trades.index') }}" class="mb-6">
+                <div class="flex items-center gap-4">
+
+                    <select name="institute_id"
+                            class="rounded border-gray-300 focus:ring focus:ring-blue-200">
+
+                        <option value="">All Institutes</option>
+
+                        @foreach ($institutes as $institute)
+                            <option value="{{ $institute->id }}"
+                                {{ request('institute_id') == $institute->id ? 'selected' : '' }}>
+                                {{ $institute->name }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                    <button type="submit"
+                            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                        Filter
+                    </button>
+
+                    <a href="{{ route('trades.index') }}"
+                    class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">
+                        Reset
+                    </a>
+
+                </div>
+            </form>
 
             {{-- Table --}}
             <div class="bg-white shadow rounded-lg overflow-hidden">
@@ -46,7 +76,7 @@
                             @forelse($trades as $trade)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
-                                <td class="px-4 py-3 text-sm">{{ $trade->institute->name }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $trade->institute->name ?? '-' }}</td>
                                 <td class="px-4 py-3 text-sm">{{ $trade->name }}</td>
                                 <td class="px-4 py-3 text-sm">
                                     <span class="px-2 py-1 text-sm rounded
