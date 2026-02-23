@@ -13,10 +13,42 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::with('trade')->latest()->paginate(10);
-        return view('courses.index', compact('courses'));
+        $trades = Trade::select('id','name')->get();
+
+        $courses = Course::with('trade')
+
+            // Filter by Trade
+            ->when($request->trade_id, function ($query) use ($request) {
+                $query->where('trade_id', $request->trade_id);
+            })
+
+            // Filter by Status
+            ->when($request->status, function ($query) use ($request) {
+                $query->where('status', $request->status);
+            })
+
+            // Filter by Min Price
+            ->when($request->min_price, function ($query) use ($request) {
+                $query->where('price', '>=', $request->min_price);
+            })
+
+            // Filter by Max Price
+            ->when($request->max_price, function ($query) use ($request) {
+                $query->where('price', '<=', $request->max_price);
+            })
+
+            // Filter by Duration
+            ->when($request->duration, function ($query) use ($request) {
+                $query->where('duration', $request->duration);
+            })
+
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('courses.index', compact('courses','trades'));
     }
 
     /**

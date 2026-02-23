@@ -26,6 +26,70 @@
                     {{ session('success') }}
                 </div>
             @endif
+
+
+
+        {{-- Search Filter --}}
+        <form method="GET" action="{{ route('courses.index') }}" class="mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                
+                <!-- Trade -->
+                <select name="trade_id"
+                        class="rounded border-gray-300 focus:ring focus:ring-blue-200">
+                    <option value="">All Trades</option>
+                    @foreach ($trades as $trade)
+                        <option value="{{ $trade->id }}"
+                            {{ request('trade_id') == $trade->id ? 'selected' : '' }}>
+                            {{ $trade->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <!-- Min Price -->
+                <input type="number"
+                    name="min_price"
+                    placeholder="Min Price"
+                    value="{{ request('min_price') }}"
+                    class="rounded border-gray-300 focus:ring focus:ring-blue-200">
+
+                <!-- Max Price -->
+                <input type="number"
+                    name="max_price"
+                    placeholder="Max Price"
+                    value="{{ request('max_price') }}"
+                    class="rounded border-gray-300 focus:ring focus:ring-blue-200">
+
+                <!-- Duration -->
+                <input type="text"
+                    name="duration"
+                    placeholder="Duration (e.g. 3 months)"
+                    value="{{ request('duration') }}"
+                    class="rounded border-gray-300 focus:ring focus:ring-blue-200">
+
+                <!-- Status -->
+                <select name="status"
+                        class="rounded border-gray-300 focus:ring focus:ring-blue-200">
+                    <option value="">All Status</option>
+                    <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+                    <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                </select>
+
+                <!-- Buttons -->
+                <div class="flex gap-2">
+                    <button type="submit"
+                            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full">
+                        Filter
+                    </button>
+
+                    <a href="{{ route('courses.index') }}"
+                    class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition w-full text-center">
+                        Reset
+                    </a>
+                </div>
+
+            </div>
+        </form>
+
         {{-- Table --}}
         <div class="bg-white shadow rounded-lg overflow-hidden">
             <div class="overflow-x-auto">
@@ -45,7 +109,7 @@
                         @forelse($courses as $course)
                         <tr class="hover:bg-gray-50">
                             <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $course->trade->name }}</td>
+                            <td class="px-4 py-3 text-sm">{{ $course->trade->name ?? '-' }}</td>
                             <td class="px-4 py-3 text-sm">{{ $course->name }}</td>
                             <td class="px-4 py-3 text-sm">{{ $course->duration }}</td>
                             <td class="px-4 py-3 text-sm">{{ $course->price }}</td>
@@ -85,6 +149,7 @@
             <div class="px-4 py-3 bg-gray-50">
                 {{ $courses->links() }}
             </div>
-        </div>        
+        </div> 
+               
     </div>
 </x-app-layout>
