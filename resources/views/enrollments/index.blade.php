@@ -43,18 +43,17 @@
                 </select>
 
                 <!-- Institute -->
-                <select name="institute_id" class="border rounded-lg px-3 py-2">
+                <select name="institute_id" id="institute" class="border rounded-lg px-3 py-2">
                     <option value="">All Institutes</option>
                     @foreach($institutes as $institute)
-                        <option value="{{ $institute->id }}"
-                            {{ request('institute_id') == $institute->id ? 'selected' : '' }}>
+                        <option value="{{ $institute->id }}">
                             {{ $institute->name }}
                         </option>
                     @endforeach
                 </select>
 
-                <!-- Trade -->
-                <select name="trade_id" class="border rounded-lg px-3 py-2">
+                {{-- Trade --}}
+                <select name="trade_id" id="trade" class="border rounded-lg px-3 py-2">
                     <option value="">All Trades</option>
                     @foreach($trades as $trade)
                         <option value="{{ $trade->id }}"
@@ -65,7 +64,7 @@
                 </select>
 
                 <!-- Course -->
-                <select name="course_id" class="border rounded-lg px-3 py-2">
+                <select name="course_id" id="course" class="border rounded-lg px-3 py-2">
                     <option value="">All Courses</option>
                     @foreach($courses as $course)
                         <option value="{{ $course->id }}"
@@ -225,4 +224,55 @@
 
         </div>
     </div>
+    <script>
+        document.getElementById('institute').addEventListener('change', function() {
+
+            let instituteId = this.value;
+            let tradeSelect = document.getElementById('trade');
+            let courseSelect = document.getElementById('course');
+
+            tradeSelect.innerHTML = '<option value="">Loading...</option>';
+            courseSelect.innerHTML = '<option value="">All Courses</option>';
+
+            if (instituteId) {
+                fetch('/get-trades/' + instituteId)
+                    .then(response => response.json())
+                    .then(data => {
+
+                        tradeSelect.innerHTML = '<option value="">All Trades</option>';
+
+                        data.forEach(trade => {
+                            tradeSelect.innerHTML +=
+                                `<option value="${trade.id}">${trade.name}</option>`;
+                        });
+                    });
+            } else {
+                tradeSelect.innerHTML = '<option value="">All Trades</option>';
+            }
+        });
+
+        document.getElementById('trade').addEventListener('change', function() {
+
+            let tradeId = this.value;
+            let courseSelect = document.getElementById('course');
+
+            courseSelect.innerHTML = '<option value="">Loading...</option>';
+
+            if (tradeId) {
+                fetch('/get-courses/' + tradeId)
+                    .then(response => response.json())
+                    .then(data => {
+
+                        courseSelect.innerHTML = '<option value="">All Courses</option>';
+
+                        data.forEach(course => {
+                            courseSelect.innerHTML +=
+                                `<option value="${course.id}">${course.name}</option>`;
+                        });
+                    });
+            } else {
+                courseSelect.innerHTML = '<option value="">All Courses</option>';
+            }
+        });
+    </script>
 </x-app-layout>
