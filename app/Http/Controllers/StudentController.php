@@ -18,27 +18,58 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
     */
-    public function index()
+    // public function index()
+    // {
+        
+    //     $students = Student::select([
+    //         'id',
+    //         'full_name_english',
+    //         'trade_id',
+    //         'course_id',
+    //         'phone',
+    //         'status',
+    //     ])
+    //     ->with(['trade:id,name','course:id,name'])
+    //     ->paginate(10);
+    //     // dd(DB::getQueryLog());
+    //     return view('students.index', compact('students'));
+    // }
+
+    public function index(Request $request)
     {
-        // DB::enableQueryLog();
-        
-        // $students = Student::with(['trade:id,name','course:id,name'])
-        //     ->latest()
-        //     ->paginate(10);
-        
-        $students = Student::select([
-            'id',
-            'full_name_english',
-            'trade_id',
-            'course_id',
-            'phone',
-            'status',
-        ])
-        ->with(['trade:id,name','course:id,name'])
-        ->paginate(10);
-        // dd(DB::getQueryLog());
-        return view('students.index', compact('students'));
+        $query = Student::with(['trade', 'course']);
+
+        // 🔍 Search by Name or Phone
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('full_name_english', 'like', '%' . $request->search . '%')
+                ->orWhere('phone', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // 🎓 Filter by Trade
+        if ($request->filled('trade_id')) {
+            $query->where('trade_id', $request->trade_id);
+        }
+
+        // 📚 Filter by Course
+        if ($request->filled('course_id')) {
+            $query->where('course_id', $request->course_id);
+        }
+
+        // 🟢 Filter by Status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $students = $query->latest()->paginate(10)->withQueryString();
+
+        $trades = Trade::all();
+        $courses = Course::all();
+
+        return view('students.index', compact('students', 'trades', 'courses'));
     }
+
 
     /**
      * Show the form for creating a new resource.
