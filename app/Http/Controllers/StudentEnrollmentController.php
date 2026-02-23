@@ -16,16 +16,56 @@ class StudentEnrollmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $enrollments = StudentEnrollment::with([
-        'student',
-        'institute',
-        'trade',
-        'course'
-    ])->latest()->paginate(10);
+        $query = StudentEnrollment::with([
+            'student',
+            'institute',
+            'trade',
+            'course'
+        ]);
 
-    return view('enrollments.index', compact('enrollments'));
+        // 🔍 Student Name Search
+        if ($request->filled('student_id')) {
+            $query->where('student_id', $request->student_id);
+        }
+
+        // 🏫 Institute Filter
+        if ($request->filled('institute_id')) {
+            $query->where('institute_id', $request->institute_id);
+        }
+
+        // 🎓 Trade Filter
+        if ($request->filled('trade_id')) {
+            $query->where('trade_id', $request->trade_id);
+        }
+
+        // 📚 Course Filter
+        if ($request->filled('course_id')) {
+            $query->where('course_id', $request->course_id);
+        }
+
+        // 📅 Date Filter
+        if ($request->filled('enroll_date')) {
+            $query->whereDate('enroll_date', $request->enroll_date);
+        }
+
+        // 🟢 Status Filter
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $enrollments = $query->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('enrollments.index', [
+            'enrollments' => $enrollments,
+            'students'    => Student::all(),
+            'institutes'  => Institute::all(),
+            'trades'      => Trade::all(),
+            'courses'     => Course::all(),
+        ]);
     }
 
     /**

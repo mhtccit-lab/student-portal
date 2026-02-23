@@ -26,6 +26,83 @@
                     {{ session('success') }}
                 </div>
             @endif
+
+            {{-- Search Filter --}}
+            <form method="GET" action="{{ route('enrollments.index') }}"
+                class="bg-white p-4 rounded-lg shadow mb-6 grid grid-cols-1 md:grid-cols-6 gap-4">
+
+                <!-- Student -->
+                <select name="student_id" class="border rounded-lg px-3 py-2">
+                    <option value="">All Students</option>
+                    @foreach($students as $student)
+                        <option value="{{ $student->id }}"
+                            {{ request('student_id') == $student->id ? 'selected' : '' }}>
+                            {{ $student->full_name_english }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <!-- Institute -->
+                <select name="institute_id" class="border rounded-lg px-3 py-2">
+                    <option value="">All Institutes</option>
+                    @foreach($institutes as $institute)
+                        <option value="{{ $institute->id }}"
+                            {{ request('institute_id') == $institute->id ? 'selected' : '' }}>
+                            {{ $institute->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <!-- Trade -->
+                <select name="trade_id" class="border rounded-lg px-3 py-2">
+                    <option value="">All Trades</option>
+                    @foreach($trades as $trade)
+                        <option value="{{ $trade->id }}"
+                            {{ request('trade_id') == $trade->id ? 'selected' : '' }}>
+                            {{ $trade->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <!-- Course -->
+                <select name="course_id" class="border rounded-lg px-3 py-2">
+                    <option value="">All Courses</option>
+                    @foreach($courses as $course)
+                        <option value="{{ $course->id }}"
+                            {{ request('course_id') == $course->id ? 'selected' : '' }}>
+                            {{ $course->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <!-- Date -->
+                <input type="date"
+                    name="enroll_date"
+                    value="{{ request('enroll_date') }}"
+                    class="border rounded-lg px-3 py-2">
+
+                <!-- Status -->
+                <select name="status" class="border rounded-lg px-3 py-2">
+                    <option value="">All Status</option>
+                    <option value="enrolled" {{ request('status') == 'enrolled' ? 'selected' : '' }}>Enrolled</option>
+                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                    <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                </select>
+
+                <!-- Buttons -->
+                <div class="md:col-span-6 flex gap-3 mt-2">
+                    <button type="submit"
+                            class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
+                        Filter
+                    </button>
+
+                    <a href="{{ route('enrollments.index') }}"
+                    class="bg-gray-500 text-white px-5 py-2 rounded-lg hover:bg-gray-600">
+                        Reset
+                    </a>
+                </div>
+            </form>
+
             {{-- Table --}}
             <div class="bg-white shadow rounded-lg overflow-hidden">
                 <div class="overflow-x-auto">
