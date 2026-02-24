@@ -42,7 +42,7 @@
             {{-- Institute --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700">Institute</label>
-                <select name="institute_id" required
+                <select name="institute_id" id="institute" required
                         class="mt-1 w-full rounded-md border-gray-300">
                     @foreach($institutes as $institute)
                         <option value="{{ $institute->id }}">
@@ -55,7 +55,7 @@
             {{-- Trade --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700">Trade</label>
-                <select name="trade_id" required
+                <select name="trade_id" id="trade" required
                         class="mt-1 w-full rounded-md border-gray-300">
                     @foreach($trades as $trade)
                         <option value="{{ $trade->id }}">
@@ -68,7 +68,7 @@
             {{-- Course --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700">Course</label>
-                <select name="course_id" required
+                <select name="course_id" id="course" required
                         class="mt-1 w-full rounded-md border-gray-300">
                     @foreach($courses as $course)
                         <option value="{{ $course->id }}">
