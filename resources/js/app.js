@@ -1,6 +1,7 @@
-import './bootstrap';
+import "./bootstrap";
+import "./dependent-dropdown";
 
-import Alpine from 'alpinejs';
+import Alpine from "alpinejs";
 
 window.Alpine = Alpine;
 

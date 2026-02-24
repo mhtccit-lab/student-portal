@@ -60,6 +60,9 @@ Route::middleware(['auth'])->group(function () {
     |
     */
 
+    Route::get('/student/get-courses/{id}', [StudentController::class, 'getCourses'])
+    ->name('students.get-courses');
+
     Route::get('/get-trades/{institute}', [StudentEnrollmentController::class, 'getTrades'])
         ->name('ajax.get-trades');
 

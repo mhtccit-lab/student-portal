@@ -165,7 +165,7 @@
             {{-- Institute --}}
             <div>
                 <label class="block mb-1">Institute</label>
-                <select name="institute_id" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
+                <select name="institute_id" id="institute" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     @foreach($institutes as $institute)
                         <option value="{{ $institute->id }}" {{ old('institute_id') == $institute->id ? 'selected' : '' }}>
                             {{ $institute->name }}
@@ -177,7 +177,7 @@
             {{-- Trade --}}
             <div>
                 <label class="block mb-1">Trade</label>
-                <select name="trade_id" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
+                <select name="trade_id" id="trade" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     @foreach($trades as $trade)
                         <option value="{{ $trade->id }}" {{ old('trade_id') == $trade->id ? 'selected' : '' }}>
                             {{ $trade->name }}
@@ -189,7 +189,7 @@
             {{-- Course --}}
             <div>
                 <label class="block mb-1">Course</label>
-                <select name="course_id" id="course_id" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
+                <select name="course_id" id="course" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                   <option value="">Select Course</option>
                   @foreach($courses as $course)
                       <option value="{{ $course->id }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
@@ -250,7 +250,7 @@
     </div>
 
     <script>
-      document.getElementById('course_id').addEventListener('change', function () {
+      document.getElementById('course').addEventListener('change', function () {
           const courseId = this.value;
 
           if (!courseId) {

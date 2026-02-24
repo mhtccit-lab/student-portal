@@ -28,18 +28,21 @@
             @endif
 
             {{-- Filters --}}
-            <form method="GET" action="{{ route('students.index') }}" 
-                class="bg-white p-4 rounded-lg shadow mb-6 grid grid-cols-1 md:grid-cols-5 gap-4">
+            <form method="GET" action="{{ route('students.index') }}" class="bg-white p-4 rounded-lg shadow mb-6 grid grid-cols-1 md:grid-cols-5 gap-4">
 
-                <!-- Search -->
                 <input type="text"
-                    name="search"
-                    value="{{ request('search') }}"
-                    placeholder="Search Name or Phone..."
-                    class="border rounded-lg px-3 py-2 focus:ring focus:ring-blue-200">
+                    name="name"
+                    value="{{ request('name') }}"
+                    placeholder="Search by Name"
+                    class="border rounded-lg px-3 py-2">
 
-                <!-- Trade -->
-                <select name="trade_id" class="border rounded-lg px-3 py-2">
+                <input type="text"
+                    name="phone"
+                    value="{{ request('phone') }}"
+                    placeholder="Search by Phone"
+                    class="border rounded-lg px-3 py-2">
+
+                <select name="trade_id" id="trade" class="border rounded px-3 py-2">
                     <option value="">All Trades</option>
                     @foreach($trades as $trade)
                         <option value="{{ $trade->id }}"
@@ -49,8 +52,7 @@
                     @endforeach
                 </select>
 
-                <!-- Course -->
-                <select name="course_id" class="border rounded-lg px-3 py-2">
+                <select name="course_id" id="course" class="border rounded px-3 py-2">
                     <option value="">All Courses</option>
                     @foreach($courses as $course)
                         <option value="{{ $course->id }}"
@@ -60,26 +62,22 @@
                     @endforeach
                 </select>
 
-                <!-- Status -->
                 <select name="status" class="border rounded-lg px-3 py-2">
                     <option value="">All Status</option>
-                    <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
-                    <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                    <option value="active" {{ request('status')=='active'?'selected':'' }}>Active</option>
+                    <option value="inactive" {{ request('status')=='inactive'?'selected':'' }}>Inactive</option>
                 </select>
 
-                <!-- Buttons -->
-                <div class="flex gap-2">
-                    <button type="submit"
-                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                <div class="md:col-span-5 flex gap-3">
+                    <button class="bg-blue-600 text-white px-5 py-2 rounded-lg">
                         Filter
                     </button>
 
                     <a href="{{ route('students.index') }}"
-                    class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
+                    class="bg-gray-500 text-white px-5 py-2 rounded-lg">
                         Reset
                     </a>
                 </div>
-
             </form>
 
             {{-- Table --}}
