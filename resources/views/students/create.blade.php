@@ -132,6 +132,8 @@
                 <select name="types_of_card" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     <option value="passport" {{ old('types_of_card') == 'passport' ? 'selected' : '' }}>Passport</option>
                     <option value="nid" {{ old('types_of_card') == 'nid' ? 'selected' : '' }}>NID</option>
+                    <option value="birth_certificate" {{ old('types_of_card') == 'birth_certificate' ? 'selected' : '' }}>Birth Certificate</option>
+                    <option value="driving_license" {{ old('types_of_card') == 'driving_license' ? 'selected' : '' }}>Driving License</option>
                 </select>
             </div>
 
@@ -160,63 +162,6 @@
                 <label class="block mb-1">Photo</label>
                 <input type="file" name="photo"
                        class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" value="{{ old('photo') }}">
-            </div>
-
-            {{-- Institute --}}
-            <div>
-                <label class="block mb-1">Institute</label>
-                <select name="institute_id" id="institute" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
-                    @foreach($institutes as $institute)
-                        <option value="{{ $institute->id }}" {{ old('institute_id') == $institute->id ? 'selected' : '' }}>
-                            {{ $institute->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Trade --}}
-            <div>
-                <label class="block mb-1">Trade</label>
-                <select name="trade_id" id="trade" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
-                    @foreach($trades as $trade)
-                        <option value="{{ $trade->id }}" {{ old('trade_id') == $trade->id ? 'selected' : '' }}>
-                            {{ $trade->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Course --}}
-            <div>
-                <label class="block mb-1">Course</label>
-                <select name="course_id" id="course" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
-                  <option value="">Select Course</option>
-                  @foreach($courses as $course)
-                      <option value="{{ $course->id }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
-                          {{ $course->name }}
-                      </option>
-                  @endforeach
-                </select>
-            </div>            
-
-            {{-- Course Duration --}}
-            <div>
-              <label class="block mb-1">Course Duration</label>
-              <input name="course_duration" id="course_duration" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" readonly>
-            </div>
-
-            {{-- Course Fee --}}
-            <div>
-                <label class="block mb-1">Course Fee</label>
-                <input name="course_fee" id="course_fee" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" readonly>
-
-            </div>
-
-            {{-- Amount Receiver --}}
-            <div>
-                <label class="block mb-1">Amount Receiver Name</label>
-                <input name="amount_receiver_name"
-                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" value="{{ old('amount_receiver_name') }}">
             </div>
 
             {{-- Reference --}}
@@ -249,25 +194,4 @@
         </form>
     </div>
 
-    <script>
-      document.getElementById('course').addEventListener('change', function () {
-          const courseId = this.value;
-
-          if (!courseId) {
-              document.getElementById('course_duration').value = '';
-              document.getElementById('course_fee').value = '';
-              return;
-          }
-
-          fetch(`/courses/${courseId}/info`)
-              .then(response => response.json())
-              .then(data => {
-                  document.getElementById('course_duration').value = data.duration;
-                  document.getElementById('course_fee').value = data.price;
-              })
-              .catch(error => {
-                  console.error('Error fetching course info:', error);
-              });
-      });
-    </script>
 </x-app-layout>

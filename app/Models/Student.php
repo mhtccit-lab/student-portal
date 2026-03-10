@@ -31,36 +31,30 @@ class Student extends Model
         'passport_expiry_date',
         'card_file',
         'photo',
-        'institute_id',
-        'trade_id',
-        'course_id',
         'reference_name',
-        'course_duration',
-        'course_fee',
-        'amount_receiver_name',
         'status',
     ];
     protected $dates = ['deleted_at'];
 
-    public function institute()
-    {
-        return $this->belongsTo(Institute::class);
-    }
+    // public function institute()
+    // {
+    //     return $this->belongsTo(Institute::class);
+    // }
 
-    public function trade()
-    {
-        return $this->belongsTo(Trade::class);
-    }
+    // public function trade()
+    // {
+    //     return $this->belongsTo(Trade::class);
+    // }
 
     public function enrollments()
     {
         return $this->hasMany(StudentEnrollment::class);
     }
-    // 🔥
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
-    }
+    // // 🔥
+    // public function course()
+    // {
+    //     return $this->belongsTo(Course::class);
+    // }
 
     // public function courses()
     // {

@@ -20,7 +20,7 @@
                     + Add Student
                 </a>
             </div>
-            
+
             @if(session('success'))
                 <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
                     {{ session('success') }}
@@ -42,25 +42,6 @@
                     placeholder="Search by Phone"
                     class="border rounded-lg px-3 py-2">
 
-                <select name="trade_id" id="trade" class="border rounded px-3 py-2">
-                    <option value="">All Trades</option>
-                    @foreach($trades as $trade)
-                        <option value="{{ $trade->id }}"
-                            {{ request('trade_id') == $trade->id ? 'selected' : '' }}>
-                            {{ $trade->name }}
-                        </option>
-                    @endforeach
-                </select>
-
-                <select name="course_id" id="course" class="border rounded px-3 py-2">
-                    <option value="">All Courses</option>
-                    @foreach($courses as $course)
-                        <option value="{{ $course->id }}"
-                            {{ request('course_id') == $course->id ? 'selected' : '' }}>
-                            {{ $course->name }}
-                        </option>
-                    @endforeach
-                </select>
 
                 <select name="status" class="border rounded-lg px-3 py-2">
                     <option value="">All Status</option>
@@ -88,8 +69,6 @@
                             <tr>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">#</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Name</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Trade</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Course</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Phone</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Action</th>
@@ -99,14 +78,11 @@
                         <tbody class="divide-y divide-gray-200">
                             @forelse($students as $student)
                             <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>                               
+                                <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
                                 <td class="px-4 py-3 text-sm font-medium text-gray-800">{{ $student->full_name_english }}</td>
-                                <td class="px-4 py-3 text-sm">{{ $student->trade?->name ?? 'N/A' }}</td>
-                                <td class="px-4 py-3 text-sm">{{ $student->course?->name ?? 'N/A' }}</td>
                                 <td class="px-4 py-3 text-sm">{{ $student->phone }}</td>
                                 <td class="px-4 py-3 text-sm">
-                                    <span class="px-2 py-1 text-sm rounded
-                                        {{ $student->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
+                                    <span class="px-2 py-1 text-sm rounded {{ $student->status == 'active' ? 'bg-green-200' : 'bg-red-200' }}">
                                         {{ ucfirst($student->status) }}
                                     </span>
                                 </td>

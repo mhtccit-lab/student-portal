@@ -78,22 +78,68 @@
                 </select>
             </div>
 
-            {{-- Enrollment Date --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Enrollment Date</label>
-                <input type="date" name="enroll_date" required
-                       class="mt-1 w-full rounded-md border-gray-300">
-            </div>            
+            <div class="grid md:grid-cols-5 gap-4">
+                {{-- Course Type --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Course Type</label>
+                    <select name="course_type" id="course_type" required
+                            class="mt-1 w-full rounded-md border-gray-300">
+                        <option value="NSDA">NSDA</option>
+                        <option value="Takamol">Takamol</option>
+                    </select>
+                </div>
 
-            {{-- Status --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Status</label>
-                <select name="status"
+                {{-- Course Fee --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Course Fee</label>
+                    <input placeholder="Auto-calculated based on course and type" name="course_fee" id="course_fee" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" readonly>
+
+                </div>
+
+                {{-- Course Duration --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Course Duration</label>
+                    <input placeholder="Auto-calculated based on course and type" name="course_duration" id="course_duration" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" readonly>
+                </div>
+
+                {{-- Amount Paid --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Amount Paid</label>
+                    <input placeholder="Enter Amount Paid" name="amount_paid" id="amount_paid" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
+                </div>
+
+                {{-- Amount Due --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Amount Due</label>
+                    <input placeholder="Enter Amount Due" name="amount_due" id="amount_due" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" readonly>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4">
+                {{-- Amount Receiver --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Amount Receiver Name</label>
+                    <input placeholder="Enter Receiver Name" name="amount_receiver_name"
+                        class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" value="{{ old('amount_receiver_name') }}">
+                </div>
+
+                {{-- Enrollment Date --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Enrollment Date</label>
+                    <input placeholder="Enter Enrollment Date" type="date" name="enroll_date" required
                         class="mt-1 w-full rounded-md border-gray-300">
-                    <option value="enrolled">Enrolled</option>
-                    <option value="completed">Completed</option>
-                    <option value="cancelled">Cancelled</option>
-                </select>
+                </div>
+
+                {{-- Status --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <select name="status"
+                            class="mt-1 w-full rounded-md border-gray-300">
+                        <option value="enrolled">Enrolled</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
             </div>
 
             {{-- Actions --}}
@@ -109,4 +155,26 @@
             </div>
         </form>
     </div>
+
+    <script>
+      document.getElementById('course').addEventListener('change', function () {
+          const courseId = this.value;
+
+          if (!courseId) {
+              document.getElementById('course_duration').value = '';
+              document.getElementById('course_fee').value = '';
+              return;
+          }
+
+          fetch(`/courses/${courseId}/info`)
+              .then(response => response.json())
+              .then(data => {
+                  document.getElementById('course_duration').value = data.duration;
+                  document.getElementById('course_fee').value = data.price;
+              })
+              .catch(error => {
+                  console.error('Error fetching course info:', error);
+              });
+      });
+    </script>
 </x-app-layout>

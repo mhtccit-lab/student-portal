@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StudentEnrollment extends Model
 {
-    use SoftDeletes; 
+    use SoftDeletes;
     // Optional but recommended (explicit)
     protected $table = 'student_enrollments';
 
@@ -17,9 +17,15 @@ class StudentEnrollment extends Model
         'institute_id',
         'trade_id',
         'course_id',
-        'enroll_date',
+        'course_type',
+        'course_fee',
+        'course_duration',
+        'amount_paid',
+        'amount_due',
+        'amount_receiver_name',
         'status',
     ];
+    protected $dates = ['enroll_date'];
 
     // Relationships
     public function student()

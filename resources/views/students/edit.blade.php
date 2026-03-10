@@ -130,6 +130,8 @@
                 <select name="types_of_card" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     <option value="passport" {{ old('types_of_card',$student->types_of_card)=='passport'?'selected':'' }}>Passport</option>
                     <option value="nid" {{ old('types_of_card',$student->types_of_card)=='nid'?'selected':'' }}>NID</option>
+                    <option value="birth_certificate" {{ old('types_of_card',$student->types_of_card)=='birth_certificate'?'selected':'' }}>Birth Certificate</option>
+                    <option value="driving_license" {{ old('types_of_card',$student->types_of_card)=='driving_license'?'selected':'' }}>Driving License</option>
                 </select>
             </div>
 
@@ -170,73 +172,6 @@
                 @endif
             </div>
 
-            {{-- Institute --}}
-            <div>
-                <label class="block mb-1">Institute</label>
-                <select name="institute_id" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
-                    @foreach($institutes as $institute)
-                        <option value="{{ $institute->id }}"
-                            {{ $student->institute_id == $institute->id ? 'selected' : '' }}>
-                            {{ $institute->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Trade --}}
-            <div>
-                <label class="block mb-1">Trade</label>
-                <select name="trade_id" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
-                    @foreach($trades as $trade)
-                        <option value="{{ $trade->id }}"
-                            {{ $student->trade_id == $trade->id ? 'selected' : '' }}>
-                            {{ $trade->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Course --}}
-            <div>
-                <label class="block mb-1">Course</label>
-                <select name="course_id" id="course_id" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
-                    @foreach($courses as $course)
-                        <option value="{{ $course->id }}"
-                            {{ $student->course_id == $course->id ? 'selected' : '' }}>
-                            {{ $course->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Course Duration --}}
-            <div>
-                <label class="block mb-1">Course Duration</label>
-                <input name="course_duration"
-                       id="course_duration"
-                       readonly
-                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
-                       value="{{ old('course_duration', $student->course_duration) }}">
-            </div>
-
-            {{-- Course Fee --}}
-            <div>
-                <label class="block mb-1">Course Fee</label>
-                <input name="course_fee"
-                       id="course_fee"
-                       readonly
-                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
-                       value="{{ old('course_fee', $student->course_fee) }}">
-            </div>
-
-            {{-- Amount Receiver --}}
-            <div>
-                <label class="block mb-1">Amount Receiver Name</label>
-                <input name="amount_receiver_name"
-                       class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
-                       value="{{ old('amount_receiver_name', $student->amount_receiver_name) }}">
-            </div>
-
             {{-- Reference --}}
             <div>
                 <label class="block mb-1">Reference Name</label>
@@ -251,6 +186,7 @@
                 <select name="status" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                     <option value="active" {{ $student->status=='active'?'selected':'' }}>Active</option>
                     <option value="inactive" {{ $student->status=='inactive'?'selected':'' }}>Inactive</option>
+
                 </select>
             </div>
 

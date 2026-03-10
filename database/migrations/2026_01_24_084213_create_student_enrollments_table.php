@@ -29,6 +29,13 @@ return new class extends Migration
                 ->constrained('courses')
                 ->cascadeOnDelete();
 
+            $table->enum('course_type', ['NSDA', 'Takamol'])->default('Takamol');
+            $table->string('course_fee');
+            $table->integer('course_duration');
+            $table->decimal('amount_paid', 15, 2)->default(0);
+            $table->decimal('amount_due', 15, 2)->default(0);
+            $table->string('amount_receiver_name');
+
             $table->date('enroll_date');
             $table->enum('status', ['enrolled','completed','cancelled'])
                 ->default('enrolled');
