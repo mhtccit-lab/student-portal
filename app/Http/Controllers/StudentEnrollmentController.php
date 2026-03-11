@@ -74,14 +74,6 @@ class StudentEnrollmentController extends Controller
      */
     public function create()
     {
-        // return view('enrollments.create', [
-        //     'students'   => Student::with('course','trade','institute')->get(),
-        //     'institutes' => Institute::all(),
-        //     'trades'     => Trade::all(),
-        //     'courses'    => Course::all(),
-        // ]);
-        // $existingEnrollments = StudentEnrollment::pluck('course_id', 'student_id');
-
         $enrolledStudentIds = StudentEnrollment::pluck('student_id')->unique();
 
         return view('enrollments.create', [
@@ -102,14 +94,13 @@ class StudentEnrollmentController extends Controller
         'student_id'   => 'required|exists:students,id',
         'institute_id' => 'required|exists:institutes,id',
         'trade_id'     => 'required|exists:trades,id',
-        'course_id' => [
-            'required',
-            'exists:courses,id',
-            Rule::unique('student_enrollments')
-                ->where(fn ($q) =>
-                    $q->where('student_id', $request->student_id)
-                ),
-        ],
+        'course_id' => 'required|exists:courses,id',
+        'course_type' => 'required',
+        'course_fee' => 'required',
+        'course_duration' => 'required',
+        'amount_paid' => 'required',
+        'amount_due' => 'required',
+        'amount_receiver_name' => 'required',
         'enroll_date'  => 'required|date',
         'status'       => 'required',
     ], [
@@ -126,10 +117,10 @@ class StudentEnrollmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    // public function show(string $id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -152,11 +143,12 @@ class StudentEnrollmentController extends Controller
     public function update(Request $request, StudentEnrollment $enrollment)
     {
         $validated = $request->validate([
-        'student_id'   => 'required|exists:students,id',
-        'institute_id' => 'required|exists:institutes,id',
-        'trade_id'     => 'required|exists:trades,id',
-        'course_id'    => 'required|exists:courses,id',
-        'status'       => 'required|in:enrolled,completed,cancelled',
+        'course_fee'            => 'required',
+        'course_duration'       => 'required',
+        'amount_paid'           => 'required',
+        'amount_due'            => 'required',
+        'amount_receiver_name'  => 'required',
+        'status'                => 'required|in:enrolled,completed,cancelled',
     ], [
         'course_id.unique' => 'This Student is Already Enrolled in this Course.'
     ]);

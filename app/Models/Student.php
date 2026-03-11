@@ -36,32 +36,10 @@ class Student extends Model
     ];
     protected $dates = ['deleted_at'];
 
-    // public function institute()
-    // {
-    //     return $this->belongsTo(Institute::class);
-    // }
-
-    // public function trade()
-    // {
-    //     return $this->belongsTo(Trade::class);
-    // }
-
     public function enrollments()
     {
         return $this->hasMany(StudentEnrollment::class);
     }
-    // // 🔥
-    // public function course()
-    // {
-    //     return $this->belongsTo(Course::class);
-    // }
-
-    // public function courses()
-    // {
-    //     return $this->belongsToMany(Course::class, 'student_enrollments')
-    //         ->withPivot(['enroll_date', 'status'])
-    //         ->withTimestamps();
-    // }
 
     protected static function booted()
     {

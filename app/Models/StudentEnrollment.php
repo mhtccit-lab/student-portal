@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StudentEnrollment extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
     // Optional but recommended (explicit)
     protected $table = 'student_enrollments';
 

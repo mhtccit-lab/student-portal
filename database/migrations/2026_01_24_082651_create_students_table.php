@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('full_name_english');
             $table->string('full_name_bangla');
+            $table->string('father_name');
+            $table->string('mother_name');
             $table->string('gender');
             $table->string('current_address');
             $table->string('permanent_address');

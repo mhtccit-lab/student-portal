@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use App\Models\Trade;
-use App\Models\Course;
 use App\Models\Student;
-use App\Models\Institute;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,51 +12,29 @@ use App\Http\Requests\UpdateStudentRequest;
 
 class StudentController extends Controller
 {
-    public function getCourses($id)
-    {
-        return Course::where('trade_id', $id)
-            ->select('id','name')
-            ->get();
-    }
+        /**
+        * Display a listing of the resource.
+        */
 
     public function index(Request $request)
     {
-        $query = Student::with(['institute','trade','course']);
+        $query = Student::query();
 
-        // Name Search
         if ($request->filled('name')) {
             $query->where('full_name_english', 'like', '%' . $request->name . '%');
         }
 
-        // Phone Search
         if ($request->filled('phone')) {
             $query->where('phone', 'like', '%' . $request->phone . '%');
         }
 
-        // Trade Filter
-        if ($request->filled('trade_id')) {
-            $query->where('trade_id', $request->trade_id);
-        }
-
-        // Course Filter
-        if ($request->filled('course_id')) {
-            $query->where('course_id', $request->course_id);
-        }
-
-        // Status Filter
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        $students = $query->latest()
-            ->paginate(10)
-            ->withQueryString();
+        $students = $query->latest()->paginate(10);
 
-        return view('students.index', [
-            'students' => $students,
-            'trades'   => Trade::all(),
-            'courses'  => Course::all(),
-        ]);
+        return view('students.index', compact('students'));
     }
 
 
@@ -68,11 +43,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-         return view('students.create', [
-            'institutes' => Institute::where('status','active')->get(),
-            'trades'     => Trade::where('status','active')->get(),
-            'courses'    => Course::where('status','active')->get(),
-        ]);
+         return view('students.create');
     }
 
     /**
@@ -81,16 +52,16 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'full_name_english' => 'required|string|max:255',
-            'full_name_bangla'  => 'required|string|max:255',
-            'father_name' => 'required|string|max:255',
-            'mother_name' => 'required|string|max:255',
-            'gender'            => 'required',
-            'phone'             => 'required',
-            'email'             => 'required|email|unique:students,email',
-            'date_of_birth'     => 'required|date',
-            'current_address'   => 'nullable|string',
-            'permanent_address' => 'nullable|string',
+            'full_name_english'     => 'required|string|max:255',
+            'full_name_bangla'      => 'required|string|max:255',
+            'father_name'           => 'required|string|max:255',
+            'mother_name'           => 'required|string|max:255',
+            'gender'                => 'required',
+            'current_address'       => 'nullable|string',
+            'permanent_address'     => 'nullable|string',
+            'phone'                 => 'required',
+            'email'                 => 'required|email|unique:students,email',
+            'date_of_birth'         => 'required|date',
             'district'              => 'required|string|max:255',
             'police_station'        => 'required|string|max:255',
             'postal_code'           => 'required|string|max:20',
@@ -98,15 +69,9 @@ class StudentController extends Controller
             'card_number'           => 'required|string|max:255',
             'passport_expiry_date'  => 'required|date',
             'card_file'             => ['required','file','mimes:jpg,jpeg,png,webp','max:5120',],// 5 MB
-            'photo' => ['required','image','mimes:jpg,jpeg,png,webp','max:2048', ],// 2 MB
-            'institute_id'      => 'required|exists:institutes,id',
-            'trade_id'          => 'required|exists:trades,id',
-            'course_id'         => 'required|exists:courses,id',
-            'course_duration'   => 'required|integer',
-            'course_fee'        => 'required|string',
-            'amount_receiver_name'  => 'required|string|max:255',
-            'reference_name'    => 'nullable|string|max:255',
-            'status'            => 'required|in:active,inactive',
+            'photo'                 => ['required','image','mimes:jpg,jpeg,png,webp','max:2048', ],// 2 MB
+            'reference_name'        => 'nullable|string|max:255',
+            'status'                => 'required|in:active,inactive',
         ]);
 
         $username = Str::slug($validated['full_name_english']);
@@ -133,11 +98,6 @@ class StudentController extends Controller
                 'public'
             );
         }
-        
-        $course = Course::findOrFail($request->course_id);
-
-        $validated['course_duration'] = $course->duration;
-        $validated['course_fee'] = $course->price;
 
         Student::create($validated);
 
@@ -148,10 +108,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
-    {
-        //
-    }
+    // public function show(Student $student)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -160,9 +120,6 @@ class StudentController extends Controller
     {
         return view('students.edit', [
             'student'    => $student,
-            'institutes' => Institute::where('status','active')->get(),
-            'trades'     => Trade::where('status','active')->get(),
-            'courses'    => Course::where('status','active')->get(),
         ]);
     }
 
@@ -174,77 +131,10 @@ class StudentController extends Controller
        $validated = $request->validate([
         'full_name_english' => 'required|string|max:255',
         'full_name_bangla'  => 'required|string|max:255',
-        'father_name' => 'required|string|max:255',
-        'mother_name' => 'required|string|max:255',
-        'gender'            => 'required',
         'phone'             => 'required',
         'email'             => 'required|email|unique:students,email,' . $student->id,
-        'date_of_birth'     => 'required|date',
-        'district'          => 'required',
-        'police_station'    => 'required',
-        'postal_code'       => 'required',
-        'types_of_card'     => 'required|in:nid,passport',
-        'card_number'       => 'required',
-        'passport_expiry_date' => 'nullable|date',
-        'card_file' => [
-            'nullable',
-            'file',
-            'mimes:jpg,jpeg,png,webp',
-            'max:5120', // 5 MB
-        ],
-
-        'photo' => [
-            'nullable',
-            'image',
-            'mimes:jpg,jpeg,png,webp',
-            'max:2048', // 2 MB
-        ],
-        'institute_id'      => 'required|exists:institutes,id',
-        'trade_id'          => 'required|exists:trades,id',
-        'course_id'         => 'required|exists:courses,id',
-        'amount_receiver_name' => 'required',
-        'status'            => 'required|in:active,inactive',
+        'status'            => 'required',
     ]);
-
-    // 🔐 always trust DB, not form
-    $course = Course::findOrFail($request->course_id);
-    $validated['course_duration'] = $course->duration;
-    $validated['course_fee'] = $course->price;
-
-    // File updates (optional)
-    $username = Str::slug($validated['full_name_english']);
-
-    // Card file
-    if ($request->hasFile('card_file')) {
-        if ($student->card_file) {
-            Storage::disk('public')->delete($student->card_file);
-        }
-
-        $ext = $request->file('card_file')->getClientOriginalExtension();
-        $validated['card_file'] = "students/cards/{$username}_{$student->id}_card.{$ext}";
-
-        $request->file('card_file')->storeAs(
-            'students/cards',
-            "{$username}_{$student->id}_card.{$ext}",
-            'public'
-        );
-    }
-
-    // Photo
-    if ($request->hasFile('photo')) {
-        if ($student->photo) {
-            Storage::disk('public')->delete($student->photo);
-        }
-
-        $ext = $request->file('photo')->getClientOriginalExtension();
-        $validated['photo'] = "students/photos/{$username}_{$student->id}_photo.{$ext}";
-
-        $request->file('photo')->storeAs(
-            'students/photos',
-            "{$username}_{$student->id}_photo.{$ext}",
-            'public'
-        );
-    }
 
     $student->update($validated);
 

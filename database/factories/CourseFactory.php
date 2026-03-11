@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Trade;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,14 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->randomElement([
+                'Basic Course',
+                'Advanced Course',
+                'Professional Course'
+            ]),
+            'duration' => $this->faker->numberBetween(3,12),
+            'price' => $this->faker->numberBetween(5000,20000),
+            'status' => 'active'
         ];
     }
 }
