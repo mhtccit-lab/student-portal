@@ -204,22 +204,4 @@
 
         </form>
     </div>
-
-    {{-- Auto course duration & fee --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const courseSelect = document.getElementById('course_id');
-
-            if (!courseSelect) return;
-
-            courseSelect.addEventListener('change', function () {
-                fetch(`/courses/${this.value}/info`)
-                    .then(res => res.json())
-                    .then(data => {
-                        document.getElementById('course_duration').value = data.duration;
-                        document.getElementById('course_fee').value = data.price;
-                    });
-            });
-        });
-    </script>
 </x-app-layout>

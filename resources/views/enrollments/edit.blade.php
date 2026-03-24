@@ -91,7 +91,7 @@
                         id="course_fee"
                         readonly
                         class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
-                        value="{{ old('course_fee', $student->course_fee) }}">
+                        value="{{ old('course_fee', $enrollment->course_fee) }}">
                 </div>
 
                 {{-- Course Duration --}}
@@ -101,7 +101,7 @@
                         id="course_duration"
                         readonly
                         class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
-                        value="{{ old('course_duration', $student->course_duration) }}">
+                        value="{{ old('course_duration', $enrollment->course_duration) }}">
                 </div>
 
                 {{-- Amount Paid --}}
@@ -113,7 +113,7 @@
                 {{-- Amount Due --}}
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Amount Due</label>
-                    <input placeholder="Enter Amount Due" name="amount_due" id="amount_due" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" readonly value="{{ old('amount_due', $enrollment->amount_due) }}">
+                    <input placeholder="Enter Amount Due" name="amount_due" id="amount_due" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" value="{{ old('amount_due', $enrollment->amount_due) }}">
                 </div>
             </div>
 
@@ -123,7 +123,7 @@
                     <label class="block text-sm font-medium text-gray-700">Amount Receiver Name</label>
                     <input name="amount_receiver_name"
                         class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200"
-                        value="{{ old('amount_receiver_name', $student->amount_receiver_name) }}"
+                        value="{{ old('amount_receiver_name', $enrollment->amount_receiver_name) }}"
                         placeholder="Enter Receiver Name"
                         >
                 </div>
@@ -167,4 +167,22 @@
             </div>
         </form>
     </div>
+
+    {{-- Auto course duration & fee --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const courseSelect = document.getElementById('course_id');
+
+            if (!courseSelect) return;
+
+            courseSelect.addEventListener('change', function () {
+                fetch(`/courses/${this.value}/info`)
+                    .then(res => res.json())
+                    .then(data => {
+                        document.getElementById('course_duration').value = data.duration;
+                        document.getElementById('course_fee').value = data.price;
+                    });
+            });
+        });
+    </script>
 </x-app-layout>

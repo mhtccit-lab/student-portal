@@ -77,11 +77,11 @@ class StudentEnrollmentController extends Controller
         $enrolledStudentIds = StudentEnrollment::pluck('student_id')->unique();
 
         return view('enrollments.create', [
-            'students' => Student::all(),
-            'enrolledStudentIds' => $enrolledStudentIds,
-            'institutes' => Institute::all(),
-            'trades' => Trade::all(),
-            'courses' => Course::all(),
+            'students'              => Student::all(),
+            'enrolledStudentIds'    => $enrolledStudentIds,
+            'institutes'            => Institute::all(),
+            'trades'                => Trade::all(),
+            'courses'               => Course::all(),
         ]);
     }
 
@@ -91,20 +91,20 @@ class StudentEnrollmentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-        'student_id'   => 'required|exists:students,id',
-        'institute_id' => 'required|exists:institutes,id',
-        'trade_id'     => 'required|exists:trades,id',
-        'course_id' => 'required|exists:courses,id',
-        'course_type' => 'required',
-        'course_fee' => 'required',
-        'course_duration' => 'required',
-        'amount_paid' => 'required',
-        'amount_due' => 'required',
-        'amount_receiver_name' => 'required',
-        'enroll_date'  => 'required|date',
-        'status'       => 'required',
+        'student_id'            => 'required|exists:students,id',
+        'institute_id'          => 'required|exists:institutes,id',
+        'trade_id'              => 'required|exists:trades,id',
+        'course_id'             => 'required|exists:courses,id',
+        'course_type'           => 'required',
+        'course_fee'            => 'required',
+        'course_duration'       => 'required',
+        'amount_paid'           => 'required',
+        'amount_due'            => 'required',
+        'amount_receiver_name'  => 'required',
+        'enroll_date'           => 'required|date',
+        'status'                => 'required',
     ], [
-        'course_id.unique' => 'This student is already enrolled in this course.'
+        'course_id.unique'      => 'This student is already enrolled in this course.'
     ]);
 // dd($request->all());
     StudentEnrollment::create($validated);

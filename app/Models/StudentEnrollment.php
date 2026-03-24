@@ -23,6 +23,7 @@ class StudentEnrollment extends Model
         'amount_paid',
         'amount_due',
         'amount_receiver_name',
+        'enroll_date',
         'status',
     ];
     protected $dates = ['enroll_date'];

@@ -6,6 +6,7 @@ use App\Models\Institute;
 use App\Models\Trade;
 use App\Models\Course;
 use App\Models\Student;
+use App\Models\StudentEnrollment;
 
 class DashboardController extends Controller
 {
@@ -19,6 +20,11 @@ class DashboardController extends Controller
 
             'activeStudents'  => Student::where('status', 'active')->count(),
             'inactiveStudents'=> Student::where('status', 'inactive')->count(),
+
+            'enrollmentsCount'   => StudentEnrollment::count(),
+            'activeEnrollments'  => StudentEnrollment::where('status','enrolled')->count(),
+            'completedEnrollments' => StudentEnrollment::where('status','completed')->count(),
+            'cancelledEnrollments' => StudentEnrollment::where('status','cancelled')->count(),
         ]);
     }
 }

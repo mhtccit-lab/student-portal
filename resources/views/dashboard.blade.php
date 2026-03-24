@@ -27,7 +27,7 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto px-4">
             {{-- Stats Grid --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
 
                 {{-- Institutes --}}
                 <div class="bg-white shadow rounded-lg p-5 border-l-4 border-blue-500">
@@ -48,28 +48,42 @@
                 </div>
 
                 {{-- Students --}}
-                <div class="bg-white shadow rounded-lg p-5 border-l-4 border-red-500">
+                <div class="bg-white shadow rounded-lg p-5 border-l-4 border-orange-500">
                     <p class="text-sm text-gray-500">Students</p>
                     <p class="text-3xl font-bold">{{ $studentsCount }}</p>
                 </div>
 
-            </div>
 
-            {{-- Charts Section --}}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
-
-                {{-- Bar Chart --}}
-                <div class="bg-white p-6 rounded shadow">
-                    <h3 class="text-lg font-semibold mb-4">System Overview</h3>
-                    <canvas id="overviewChart"></canvas>
+                {{--  Total Enrollments --}}
+                <div class="bg-white shadow rounded-lg p-5 border-l-4 border-pink-500">
+                    <p class="text-sm text-gray-500">Total Enrollments</p>
+                    <p class="text-3xl font-bold">{{ $enrollmentsCount }}</p>
                 </div>
 
-                {{-- Doughnut Chart --}}
-                <div class="bg-white p-6 rounded shadow">
-                    <h3 class="text-lg font-semibold mb-4">Student Status</h3>
-                    <canvas id="studentStatusChart"></canvas>
+
+                {{-- Active Enrollments --}}
+                <div class="bg-white shadow rounded-lg p-5 border-l-4 border-purple-500">
+                    <p class="text-sm text-gray-500">Active Enrollments</p>
+                    <p class="text-3xl font-bold">{{ $activeEnrollments }}</p>
                 </div>
+
+
+                {{-- Completed Enrollments --}}
+                <div class="bg-white shadow rounded-lg p-5 border-l-4 border-yellow-500">
+                    <p class="text-sm text-gray-500">Completed Enrollments</p>
+                    <p class="text-3xl font-bold">{{ $completedEnrollments }}</p>
+                </div>
+
+
+                {{-- Cancelled Enrollments --}}
+                <div class="bg-white shadow rounded-lg p-5 border-l-4 border-red-500">
+                    <p class="text-sm text-gray-500">Cancelled Enrollments</p>
+                    <p class="text-3xl font-bold">{{ $cancelledEnrollments }}</p>
+                </div>
+
+
             </div>
+
 
             {{-- Quick Actions --}}
             <div class="mt-10">

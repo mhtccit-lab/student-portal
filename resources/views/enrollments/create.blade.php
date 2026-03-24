@@ -105,13 +105,13 @@
                 {{-- Amount Paid --}}
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Amount Paid</label>
-                    <input placeholder="Enter Amount Paid" name="amount_paid" id="amount_paid" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
+                    <input type="number" placeholder="Enter Amount Paid" name="amount_paid" id="amount_paid" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                 </div>
 
                 {{-- Amount Due --}}
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Amount Due</label>
-                    <input placeholder="Enter Amount Due" name="amount_due" id="amount_due" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200" readonly>
+                    <input type="number" placeholder="Enter Amount Due" name="amount_due" id="amount_due" class="w-full mt-1 rounded border-gray-300 focus:ring focus:ring-blue-200">
                 </div>
             </div>
 
